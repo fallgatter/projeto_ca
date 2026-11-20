@@ -1,0 +1,6 @@
+dash>=4.5,<5
+pyproj>=3.7,<4
+ijson>=3.3,<4
+tzdata
+paho-mqtt>=2,<3
+jsonschema>=4,<5
