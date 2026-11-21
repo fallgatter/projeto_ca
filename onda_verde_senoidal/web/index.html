@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e151c">
+  <title>Onda Verde · Quadrilátero de Curitiba</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script defer src="dashboard.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div><strong>Onda Verde</strong><span>QUADRILÁTERO CENTRAL · CURITIBA</span></div>
+    </div>
+    <div class="source"><i></i> Reprodução SUMO <span>·</span> <span id="run-date">Julho de 2026</span></div>
+  </header>
+  <main>
+    <section class="intro">
+      <div>
+        <h1>Trânsito, via a via</h1>
+        <p id="gain-note">Compare a onda verde de referência com o controle preditivo por Fourier e MQTT.</p>
+      </div>
+      <label class="select-field">Simulação <select id="run" aria-label="Pico e semente"></select></label>
+    </section>
+    <div id="problem" role="status" hidden></div>
+    <nav class="corridors" aria-label="Recorte viário" id="corridors"></nav>
+    <label class="isolate"><input id="isolate" type="checkbox"> Isolar somente esta via nos dois mapas</label>
+    <section class="toolbar" aria-label="Reprodução sincronizada">
+      <button class="primary" id="play" type="button" title="Reproduzir ou pausar a animação">▶ <span>Reproduzir</span></button>
+      <output id="clock" for="time">00:00:00</output>
+      <input id="time" type="range" min="0" value="0" aria-label="Horário da simulação">
+      <span id="end-clock" class="muted">00:00</span>
+      <label class="visually-hidden" for="rate">Velocidade do replay</label>
+      <select id="rate"><option value="1">1×</option><option value="5" selected>5×</option><option value="15">15×</option><option value="60">60×</option></select>
+      <div class="zoom" aria-label="Escala dos dois mapas">
+        <button id="zoom-out" title="Diminuir escala" aria-label="Diminuir escala">−</button>
+        <button id="zoom-in" title="Aumentar escala" aria-label="Aumentar escala">+</button>
+        <button id="reset" title="Reenquadrar os mapas">Centralizar</button>
+      </div>
+    </section>
+    <section class="comparison" aria-label="Comparação sincronizada">
+      <article class="map-card">
+        <header><div><span class="tag before">REFERÊNCIA</span><h2>Onda verde reconstruída</h2></div><div class="live-count" id="before-count"></div></header>
+        <canvas id="before-map" tabindex="0" aria-label="Mapa da onda verde de referência. Arraste para mover e clique num semáforo para inspecionar."></canvas>
+      </article>
+      <article class="map-card">
+        <header><div><span class="tag after">OTIMIZADO</span><h2 id="policy-name">Controle preditivo + MQTT</h2></div><div class="live-count" id="after-count"></div></header>
+        <canvas id="after-map" tabindex="0" aria-label="Mapa do controle otimizado. Arraste para mover e clique num semáforo para inspecionar."></canvas>
+      </article>
+    </section>
+    <div class="legend" aria-label="Legenda dos mapas">
+      <span><i class="car"></i> Carro</span><span><i class="bus"></i> Ônibus</span><span><i class="stopped"></i> Em baixa velocidade</span>
+      <span><i class="signal green"></i> Verde</span><span><i class="signal yellow"></i> Amarelo</span><span><i class="signal red"></i> Vermelho</span><span><i class="packet"></i> MQTT · remetente → destino</span>
+      <span class="move-hint">Clique em um semáforo para ver a previsão de fluxo.</span>
+    </div>
+    <section id="signal-detail" class="signal-detail" aria-label="Semáforo selecionado" hidden>
+      <div id="signal-overview"></div>
+      <section class="signal-forecast" aria-labelledby="signal-forecast-title">
+        <header>
+          <h3 id="signal-forecast-title">Previsão de fluxo por aproximação</h3>
+          <label class="select-field">Aproximação <select id="signal-approach"></select></label>
+        </header>
+        <div class="legend forecast-legend" aria-label="Legenda do gráfico">
+          <span><i class="forecast-base"></i> Curva de Fourier</span>
+          <span id="legend-corrected"><i class="forecast-corrected"></i> Previsão corrigida</span>
+          <span id="legend-observed"><i class="forecast-observed"></i> Fluxo observado · média de 5 min</span>
+        </div>
+        <canvas id="signal-chart" class="signal-chart" role="img" aria-label="Curva de Fourier, previsão corrigida e fluxo observado em 24 horas" aria-describedby="signal-forecast-note signal-values"></canvas>
+        <p class="fine" id="signal-forecast-note"></p>
+        <p class="fine" id="signal-values"></p>
+        <div class="signal-model" id="signal-model" hidden>
+          <h3>Da aproximação à previsão</h3>
+          <p class="fine" id="model-clock"></p>
+          <div class="model-visuals">
+            <figure class="model-map">
+              <figcaption><strong id="model-street"></strong><span id="model-observed"></span></figcaption>
+              <canvas id="model-junction" role="img" aria-label="Malha viária e sentido da aproximação selecionada"></canvas>
+              <p class="fine" id="model-map-note">A seta indica o sentido da aproximação até o semáforo.</p>
+            </figure>
+            <div class="model-waterfall" aria-label="Contribuições para a previsão de fluxo">
+              <div class="model-waterfall-header">
+                <strong>Composição da previsão</strong>
+                <span class="fine">veíc./h</span>
+              </div>
+              <ol id="model-bars"></ol>
+              <div class="model-axis" aria-hidden="true"><div id="model-axis"></div></div>
+              <p id="model-limit" class="fine" hidden></p>
+            </div>
+          </div>
+          <details class="model-formulas">
+            <summary>Fórmulas e coeficientes</summary>
+            <p><code>F(t) = máx(0, a₀ + Σₖ [aₖ cos(kωt) + bₖ sen(kωt)])</code></p>
+            <p class="fine">Soma de k = 1 até <span id="model-order"></span>. ω = 2π/86.400 e t é contado em segundos desde a meia-noite.</p>
+            <dl id="model-coefficients" class="model-coefficients" aria-label="Coeficientes de Fourier"></dl>
+            <p><code id="model-error-formula"></code></p>
+            <p class="fine" id="model-window" hidden></p>
+            <p><code>rₘ = 0,80 × rₘ₋₁ + 0,20 × erroₘ</code></p>
+            <p class="fine" id="model-current"></p>
+            <p><code>Previsão corrigida = máx(0, F(tₘ + 22,5) + rₘ)</code></p>
+            <p class="fine" id="model-result-operation"></p>
+          </details>
+        </div>
+      </section>
+    </section>
+    <section class="panel" aria-labelledby="result-title">
+      <header><div><h2 id="result-title">Resultado no recorte</h2><p id="metrics-note"></p></div></header>
+      <div id="metrics" class="metrics"></div>
+    </section>
+    <footer>Malha OpenStreetMap · velocidades e padrões O/D TomTom · itinerários e GPS URBS/C3SL. Os tempos municipais vigentes do quadrilátero completo precisam de confirmação.</footer>
+  </main>
+</body>
+</html>
