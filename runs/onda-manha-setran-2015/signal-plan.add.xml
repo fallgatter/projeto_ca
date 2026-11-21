@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='utf-8'?>
+<additional>
+  <!-- Adaptação parcial da Tabela 9 de Pando e Fuchs, UTFPR (2015), plano SETRAN SA-14 das 7 h às 9 h. -->
+  <!-- Estados e transições da malha SUMO, verdes proporcionais aos dados históricos e ciclo de 90 s. -->
+  <!-- Fonte https://repositorio.utfpr.edu.br/jspui/bitstream/1/8124/1/CT_ENGCOMP_2015_1_09.pdf -->
+  <!-- SETRAN 325. Verde de referência Chile. Defasagem publicada 62 s. Verdes publicados (46, 34) s. -->
+  <tlLogic id="1721952587" type="static" programID="setran-sa14-2015" offset="23">
+    <phase duration="31" state="rrGGGgGrGr" />
+    <phase duration="5" state="rrGGGgrrrr" />
+    <phase duration="3" state="rryyyyrrrr" />
+    <phase duration="43" state="gGrrrrrGrG" />
+    <phase duration="5" state="gGrrrrrrrr" />
+    <phase duration="3" state="yyrrrrrrrr" />
+  </tlLogic>
+  <!-- SETRAN 532. Verde de referência Chile. Defasagem publicada 46 s. Verdes publicados (52, 28) s. -->
+  <tlLogic id="978827164" type="static" programID="setran-sa14-2015" offset="46">
+    <phase duration="50" state="GGrrrG" />
+    <phase duration="5" state="GGrrrr" />
+    <phase duration="3" state="yyrrrr" />
+    <phase duration="24" state="rrgGGr" />
+    <phase duration="5" state="rrgGrr" />
+    <phase duration="3" state="rryyrr" />
+  </tlLogic>
+  <!-- SETRAN 175. Verde de referência Chile. Defasagem publicada 3 s. Verdes publicados (43, 37) s. -->
+  <tlLogic id="3218088943" type="static" programID="setran-sa14-2015" offset="3">
+    <phase duration="40" state="GGGrrrrrrG" />
+    <phase duration="5" state="GGGrrrrrrr" />
+    <phase duration="3" state="yyyrrrrrrr" />
+    <phase duration="34" state="rrrgGGGGGr" />
+    <phase duration="5" state="rrrgGGGGrr" />
+    <phase duration="3" state="rrryyyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 176. Verde de referência Chile. Defasagem publicada 71 s. Verdes publicados (40, 38) s. -->
+  <tlLogic id="269274518" type="static" programID="setran-sa14-2015" offset="71">
+    <phase duration="38" state="gGrrrrG" />
+    <phase duration="5" state="gGrrrrr" />
+    <phase duration="3" state="yyrrrrr" />
+    <phase duration="36" state="rrGGGGr" />
+    <phase duration="5" state="rrGGGrr" />
+    <phase duration="3" state="rryyyrr" />
+  </tlLogic>
+  <!-- SETRAN 176. Verde de referência Chile. Defasagem publicada 71 s. Verdes publicados (40, 38) s. -->
+  <tlLogic id="269274519" type="static" programID="setran-sa14-2015" offset="71">
+    <phase duration="38" state="GGrrrG" />
+    <phase duration="5" state="GGrrrr" />
+    <phase duration="3" state="yyrrrr" />
+    <phase duration="36" state="rrgGGr" />
+    <phase duration="5" state="rrgGrr" />
+    <phase duration="3" state="rryyrr" />
+  </tlLogic>
+  <!-- SETRAN 661. Verde de referência Conselheiro Dantas. Defasagem publicada 66 s. Verdes publicados (42, 38) s. -->
+  <tlLogic id="668980108" type="static" programID="setran-sa14-2015" offset="23">
+    <phase duration="35" state="gGGGrrrrGrGr" />
+    <phase duration="5" state="gGGGrrrrrrrr" />
+    <phase duration="3" state="yyyyrrrrrrrr" />
+    <phase duration="39" state="rrrrGGggrGrG" />
+    <phase duration="5" state="rrrrGGggrrrr" />
+    <phase duration="3" state="rrrryyyyrrrr" />
+  </tlLogic>
+  <!-- SETRAN 662. Verde de referência Conselheiro Dantas. Defasagem publicada 70 s. Verdes publicados (44, 36) s. -->
+  <tlLogic id="668980111" type="static" programID="setran-sa14-2015" offset="70">
+    <phase duration="41" state="gGGrrGr" />
+    <phase duration="5" state="gGGrrrr" />
+    <phase duration="3" state="yyyrrrr" />
+    <phase duration="33" state="rrrGGrG" />
+    <phase duration="5" state="rrrGGrr" />
+    <phase duration="3" state="rrryyrr" />
+  </tlLogic>
+  <!-- SETRAN 663. Verde de referência Conselheiro Dantas. Defasagem publicada 17 s. Verdes publicados (38, 42) s. -->
+  <tlLogic id="267193280" type="static" programID="setran-sa14-2015" offset="17">
+    <phase duration="35" state="gGGrrrrGr" />
+    <phase duration="5" state="gGGrrrrrr" />
+    <phase duration="3" state="yyyrrrrrr" />
+    <phase duration="39" state="rrrGGGGrG" />
+    <phase duration="5" state="rrrGGGGrr" />
+    <phase duration="3" state="rrryyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 664. Verde de referência Alferes Poli. Defasagem publicada 30 s. Verdes publicados (33, 47) s. -->
+  <tlLogic id="269285955" type="static" programID="setran-sa14-2015" offset="30">
+    <phase duration="30" state="gGrrrGr" />
+    <phase duration="5" state="gGrrrrr" />
+    <phase duration="3" state="yyrrrrr" />
+    <phase duration="44" state="rrGGGrG" />
+    <phase duration="5" state="rrGGGrr" />
+    <phase duration="3" state="rryyyrr" />
+  </tlLogic>
+  <!-- SETRAN 665. Verde de referência Westphalen. Defasagem publicada 32 s. Verdes publicados (25, 55) s. -->
+  <tlLogic id="865726655" type="static" programID="setran-sa14-2015" offset="61">
+    <phase duration="53" state="ggGGrrrrrGr" />
+    <phase duration="5" state="ggGGrrrrrrr" />
+    <phase duration="3" state="yyyyrrrrrrr" />
+    <phase duration="21" state="rrrrGGGGGrG" />
+    <phase duration="5" state="rrrrGGGGGrr" />
+    <phase duration="3" state="rrrryyyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 319. Verde de referência Kennedy. Defasagem publicada 82 s. Verdes publicados (56, 24) s. -->
+  <tlLogic id="267193378" type="static" programID="setran-sa14-2015" offset="53">
+    <phase duration="23" state="GGGGGrrrrrrr" />
+    <phase duration="6" state="yyyyyrrrrrrr" />
+    <phase duration="50" state="rrrrrGGGGGGG" />
+    <phase duration="5" state="rrrrrGGGGGGr" />
+    <phase duration="6" state="rrrrryyyyyyr" />
+  </tlLogic>
+  <!-- SETRAN 319. Verde de referência Kennedy. Defasagem publicada 82 s. Verdes publicados (56, 24) s. -->
+  <tlLogic id="668980106" type="static" programID="setran-sa14-2015" offset="53">
+    <phase duration="23" state="rrrGGGGr" />
+    <phase duration="6" state="rrryyyyr" />
+    <phase duration="50" state="gGGrrrrG" />
+    <phase duration="5" state="gGGrrrrr" />
+    <phase duration="6" state="yyyrrrrr" />
+  </tlLogic>
+  <!-- SETRAN 179. Verde de referência Kennedy. Defasagem publicada 17 s. Verdes publicados (53, 27) s. -->
+  <tlLogic id="267193281" type="static" programID="setran-sa14-2015" offset="17">
+    <phase duration="51" state="GGGrrrrG" />
+    <phase duration="5" state="GGGrrrrr" />
+    <phase duration="3" state="yyyrrrrr" />
+    <phase duration="23" state="rrrgGGGr" />
+    <phase duration="5" state="rrrgGGrr" />
+    <phase duration="3" state="rrryyyrr" />
+  </tlLogic>
+  <!-- SETRAN 179. Verde de referência Kennedy. Defasagem publicada 17 s. Verdes publicados (53, 27) s. -->
+  <tlLogic id="267193282" type="static" programID="setran-sa14-2015" offset="17">
+    <phase duration="51" state="gGGGGrrrrGr" />
+    <phase duration="5" state="gGGGGrrrrrr" />
+    <phase duration="3" state="yyyyyrrrrrr" />
+    <phase duration="23" state="rrrrrGGGGrG" />
+    <phase duration="5" state="rrrrrGGGGrr" />
+    <phase duration="3" state="rrrrryyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 178. Verde de referência Kennedy. Defasagem publicada 26 s. Verdes publicados (39, 41) s. -->
+  <tlLogic id="267193381" type="static" programID="setran-sa14-2015" offset="26">
+    <phase duration="36" state="gGGrrrrGr" />
+    <phase duration="5" state="gGGrrrrrr" />
+    <phase duration="3" state="yyyrrrrrr" />
+    <phase duration="38" state="rrrGGGGrG" />
+    <phase duration="5" state="rrrGGGGrr" />
+    <phase duration="3" state="rrryyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 178. Verde de referência Kennedy. Defasagem publicada 26 s. Verdes publicados (39, 41) s. -->
+  <tlLogic id="571309055" type="static" programID="setran-sa14-2015" offset="26">
+    <phase duration="36" state="GGGGrrrrrG" />
+    <phase duration="5" state="GGGGrrrrrr" />
+    <phase duration="3" state="yyyyrrrrrr" />
+    <phase duration="38" state="rrrrgGGGGr" />
+    <phase duration="5" state="rrrrgGGGrr" />
+    <phase duration="3" state="rrrryyyyrr" />
+  </tlLogic>
+  <!-- SETRAN 177. Verde de referência Kennedy. Defasagem publicada 49 s. Verdes publicados (29, 19, 23) s. -->
+  <tlLogic id="267419701" type="static" programID="setran-sa14-2015" offset="49">
+    <phase duration="28" state="rrrGGGrrrrGr" />
+    <phase duration="5" state="rrrGGGrrrrrr" />
+    <phase duration="3" state="rrryyyrrrrrr" />
+    <phase duration="17" state="rrrrrrGGGrGG" />
+    <phase duration="5" state="rrrrrrGGGrrr" />
+    <phase duration="3" state="rrrrrryyyrrr" />
+    <phase duration="21" state="gGGrrrrrrGrG" />
+    <phase duration="5" state="gGGrrrrrrrrr" />
+    <phase duration="3" state="yyyrrrrrrrrr" />
+  </tlLogic>
+  <!-- SETRAN 534. Verde de referência Piauí. Defasagem publicada 85 s. Verdes publicados (40, 40) s. -->
+  <tlLogic id="372407124" type="static" programID="setran-sa14-2015" offset="85">
+    <phase duration="39" state="GGGrrrrr" />
+    <phase duration="6" state="yyyrrrrr" />
+    <phase duration="39" state="rrrGGGGG" />
+    <phase duration="6" state="rrryyyyy" />
+  </tlLogic>
+</additional>

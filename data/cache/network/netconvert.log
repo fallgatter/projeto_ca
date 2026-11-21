@@ -1,0 +1,69 @@
+Warning: Unknown lane use specifier '' ignored for way '23185727'
+Warning: Unknown lane use specifier '' ignored for way '23185727'
+Warning: Unknown lane use specifier '' ignored for way '23185727'
+Warning: Unknown lane use specifier '' ignored for way '23185727'
+Warning: Unknown lane use specifier '' ignored for way '23185727'
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service' (first occurrence for edge '24552851').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.residential' (first occurrence for edge '29430644').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '48310676').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '55204915').
+Warning: Discarding unknown compound 'railway.abandoned' in type 'highway.cycleway|railway.abandoned' (first occurrence for edge '72623884').
+Warning: Removing pt stop '10055114072' on non existing edge '331568010#0'.
+Warning: Removing pt stop '10055114073' on non existing edge '276650447#1'.
+Warning: Removing pt stop '10303935572' on non existing edge '1008705552#1'.
+Warning: Removing pt stop '10303935573' on non existing edge '24553248#1'.
+Warning: Removing pt stop '10303935574' on non existing edge '24553248#2'.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '266901803' (Estação Tubo Jardim Botânico). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '266901840' (Praça Rui Barbosa (665)). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '266902249' (Estação Tubo Carlos Dietzsch). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2550451283' (Estação Tubo Hospital Cajuru). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4489594322' (Avenida Comendador Franco, 875). Thus, it will be removed!
+Warning: Ambiguity in turnarounds computation at junction '10858843664'.
+Warning: Ambiguity in turnarounds computation at junction '13267424219'.
+Warning: Ambiguity in turnarounds computation at junction '1399726954'.
+Warning: Ambiguity in turnarounds computation at junction '372405961'.
+Warning: Ambiguity in turnarounds computation at junction '6396923430'.
+Warning: Found sharp turn with radius 6.84 at the end of edge '-163965280#0'.
+Warning: Found sharp turn with radius 3.62 at the start of edge '-231102082#0'.
+Warning: Found sharp turn with radius 3.46 at the end of edge '-913737133#1'.
+Warning: Found sharp turn with radius 6.84 at the start of edge '163965280#0'.
+Warning: Found sharp turn with radius 3.62 at the end of edge '231102082#0'.
+Warning: Lane '1107163546#1_2' is not connected from any incoming edge at junction '11095224090'.
+Warning: Lane '397624478#0_2' is not connected from any incoming edge at junction '2694848675'.
+Warning: Lane '397624478#1_2' is not connected from any incoming edge at junction '11094607714'.
+Warning: Lane '397773660#0_2' is not connected from any incoming edge at junction '266967972'.
+Warning: Lane '397773660#1_2' is not connected from any incoming edge at junction '2694848690'.
+Warning: Invalid pedestrian topology: crossing ':10758035392_c1' across [115672722#1] has no target.
+Warning: Discarding invalid crossing ':10758035392_c2' at junction '10758035392' with edges [-115672722#1] (no walkingarea found).
+Warning: Discarding invalid crossing ':10885430119_c1' at junction '10885430119' with edges [231101469#1] (no walkingarea found).
+Warning: The traffic light '10758035409' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '10758035409'
+Warning: Minor green from edge '698981472' to edge '249539951#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: The traffic light '1228428646' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1228428646'
+Warning: The traffic light '1229548260' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1229548260'
+Warning: Minor green from edge '-1338768167' to edge '1346157040#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: The traffic light '1363005182' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1363005182'
+Warning: Minor green from edge '1338768167' to edge '1346157041#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: The traffic light '1425481360' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1425481360'
+Warning: Minor green from edge '249546159' to edge '1107180159' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-248813647' to edge '248813646' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Speed of straight connection '95069886_0->92047315#1_1' reduced by 7.67 due to turning radius of 19.60 (length=7.98, angle=39.33).
+Warning: Speed of straight connection '1271368803_0->1235817946#1_2' reduced by 6.46 due to turning radius of 24.46 (length=7.42, angle=32.98).
+Warning: Speed of straight connection '-510323814#1_1->-546565130#0_1' reduced by 7.37 due to turning radius of 7.73 (length=2.00, angle=31.57).
+Warning: Speed of straight connection '546565130#0_1->510323814#1_1' reduced by 5.15 due to turning radius of 13.88 (length=3.78, angle=31.57).
+Warning: Speed of straight connection '178456479#1_0->95069901#2_2' reduced by 7.03 due to turning radius of 22.10 (length=12.90, angle=49.69).
+Warning: 8 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 34 total messages of type: Could not build program '%' for traffic light '%'
+Warning: 66 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
+Warning: 12 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 6 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 10 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 18 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
+Warning: 51 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 18 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
+Warning: 34 total messages of type: The traffic light '%' does not control any links; it will not be build.
+Warning: 290 total messages of type: Unknown lane use specifier '%' ignored for way '%'

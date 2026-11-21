@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-20T14:58:38.444875-03:00 by Eclipse SUMO sumo 1.28.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="runs\eco-approach-smoke\grid.net.xml"/>
+        <route-files value="runs\eco-approach-smoke\base.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="runs\eco-approach-smoke\base.fcd.xml"/>
+        <tripinfo-output value="runs\eco-approach-smoke\base.trip.xml"/>
+    </output>
+
+    <time>
+        <end value="140"/>
+    </time>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="car-0" depart="33.00" departLane="A1B1_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="51.00" arrivalLane="B1C1_0" arrivalPos="70.00" arrivalSpeed="13.89" duration="18.00" routeLength="244.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.18" rerouteNo="0" devices="tripinfo_car-0 fcd_car-0" vType="car" speedFactor="1.00" vaporized=""/>
+</tripinfos>

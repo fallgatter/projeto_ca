@@ -1,0 +1,49 @@
+INFO:dash.dash:Dash is running on http://127.0.0.1:8050/
+
+INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8050
+INFO:werkzeug:Press CTRL+C to quit
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:11:53] "GET /_dash-layout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /_dash-component-suites/dash/deps/polyfill@7.v4_5_0m1794966523.12.1.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /_dash-component-suites/dash/deps/react@18.v4_5_0m1794966523.3.1.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /_dash-component-suites/dash/deps/react-dom@18.v4_5_0m1794966523.3.1.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /_dash-component-suites/dash/dash-renderer/build/react-shim.v4_5_0m1794966523.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /_dash-component-suites/dash/deps/prop-types@15.v4_5_0m1794966523.8.1.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:39] "GET /assets/dashboard.css?m=1795018191.6335819 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v4_5_0m1794966523.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/dash_core_components.v4_5_3m1794966523.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/dash_core_components-shared.v4_5_3m1794966523.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/html/dash_html_components.v4_5_3m1794966523.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dash_table/bundle.v7_5_3m1794966523.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-layout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-dependencies HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_favicon.ico?v=4.5.0 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/async-datepicker.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/async-slider.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/dash/dcc/async-markdown.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "GET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:40] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:41] "GET /api/v1/tomtom/latest HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:41] "GET /api/v1/tomtom/latest HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:41] "GET /api/v1/tomtom/latest HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:43] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:43] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:43] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:45] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:45] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:45] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:47] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:47] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:47] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:48] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:48] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:48] "GET /api/v1/tomtom/latest HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Nov/2026 13:12:48] "POST /_dash-update-component?endId=LWi306wmfsIyMQT5tMqewscm~a5a670901106560c1a7aa5527b9ed6e477a6b220712d06b2ab42a2495f287c3e HTTP/1.1" 200 -

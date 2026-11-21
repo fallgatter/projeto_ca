@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-20T14:58:38.445333-03:00 by Eclipse SUMO sumo 1.28.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="runs\eco-approach-smoke\grid.net.xml"/>
+        <route-files value="runs\eco-approach-smoke\base.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="runs\eco-approach-smoke\base.fcd.xml"/>
+        <tripinfo-output value="runs\eco-approach-smoke\base.trip.xml"/>
+    </output>
+
+    <time>
+        <end value="140"/>
+    </time>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="1.00"/>
+    <timestep time="2.00"/>
+    <timestep time="3.00"/>
+    <timestep time="4.00"/>
+    <timestep time="5.00"/>
+    <timestep time="6.00"/>
+    <timestep time="7.00"/>
+    <timestep time="8.00"/>
+    <timestep time="9.00"/>
+    <timestep time="10.00"/>
+    <timestep time="11.00"/>
+    <timestep time="12.00"/>
+    <timestep time="13.00"/>
+    <timestep time="14.00"/>
+    <timestep time="15.00"/>
+    <timestep time="16.00"/>
+    <timestep time="17.00"/>
+    <timestep time="18.00"/>
+    <timestep time="19.00"/>
+    <timestep time="20.00"/>
+    <timestep time="21.00"/>
+    <timestep time="22.00"/>
+    <timestep time="23.00"/>
+    <timestep time="24.00"/>
+    <timestep time="25.00"/>
+    <timestep time="26.00"/>
+    <timestep time="27.00"/>
+    <timestep time="28.00"/>
+    <timestep time="29.00"/>
+    <timestep time="30.00"/>
+    <timestep time="31.00"/>
+    <timestep time="32.00"/>
+    <timestep time="33.00">
+        <vehicle id="car-0" x="12.30" y="178.40" angle="90.00" type="car" speed="13.89" pos="5.10" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="car-0" x="26.19" y="178.40" angle="90.00" type="car" speed="13.89" pos="18.99" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="car-0" x="40.08" y="178.40" angle="90.00" type="car" speed="13.89" pos="32.88" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="car-0" x="53.97" y="178.40" angle="90.00" type="car" speed="13.89" pos="46.77" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="car-0" x="67.86" y="178.40" angle="90.00" type="car" speed="13.89" pos="60.66" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="car-0" x="81.75" y="178.40" angle="90.00" type="car" speed="13.89" pos="74.55" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="car-0" x="95.64" y="178.40" angle="90.00" type="car" speed="13.89" pos="88.44" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="car-0" x="109.53" y="178.40" angle="90.00" type="car" speed="13.89" pos="102.33" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="car-0" x="123.42" y="178.40" angle="90.00" type="car" speed="13.89" pos="116.22" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="car-0" x="137.31" y="178.40" angle="90.00" type="car" speed="13.89" pos="130.11" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="car-0" x="151.20" y="178.40" angle="90.00" type="car" speed="13.89" pos="144.00" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="car-0" x="162.57" y="178.40" angle="90.00" type="car" speed="11.37" pos="155.37" lane="A1B1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="car-0" x="176.46" y="178.40" angle="90.00" type="car" speed="13.89" pos="3.66" lane=":B1_10_0" slope="0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="car-0" x="190.35" y="178.40" angle="90.00" type="car" speed="13.89" pos="3.15" lane="B1C1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="car-0" x="204.24" y="178.40" angle="90.00" type="car" speed="13.89" pos="17.04" lane="B1C1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="car-0" x="218.13" y="178.40" angle="90.00" type="car" speed="13.89" pos="30.93" lane="B1C1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="car-0" x="232.02" y="178.40" angle="90.00" type="car" speed="13.89" pos="44.82" lane="B1C1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="car-0" x="245.91" y="178.40" angle="90.00" type="car" speed="13.89" pos="58.71" lane="B1C1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00"/>
+    <timestep time="52.00"/>
+    <timestep time="53.00"/>
+    <timestep time="54.00"/>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="60.00"/>
+    <timestep time="61.00"/>
+    <timestep time="62.00"/>
+    <timestep time="63.00"/>
+    <timestep time="64.00"/>
+    <timestep time="65.00"/>
+    <timestep time="66.00"/>
+    <timestep time="67.00"/>
+    <timestep time="68.00"/>
+    <timestep time="69.00"/>
+    <timestep time="70.00"/>
+    <timestep time="71.00"/>
+    <timestep time="72.00"/>
+    <timestep time="73.00"/>
+    <timestep time="74.00"/>
+    <timestep time="75.00"/>
+    <timestep time="76.00"/>
+    <timestep time="77.00"/>
+    <timestep time="78.00"/>
+    <timestep time="79.00"/>
+    <timestep time="80.00"/>
+    <timestep time="81.00"/>
+    <timestep time="82.00"/>
+    <timestep time="83.00"/>
+    <timestep time="84.00"/>
+    <timestep time="85.00"/>
+    <timestep time="86.00"/>
+    <timestep time="87.00"/>
+    <timestep time="88.00"/>
+    <timestep time="89.00"/>
+    <timestep time="90.00"/>
+    <timestep time="91.00"/>
+    <timestep time="92.00"/>
+    <timestep time="93.00"/>
+    <timestep time="94.00"/>
+    <timestep time="95.00"/>
+    <timestep time="96.00"/>
+    <timestep time="97.00"/>
+    <timestep time="98.00"/>
+    <timestep time="99.00"/>
+    <timestep time="100.00"/>
+    <timestep time="101.00"/>
+    <timestep time="102.00"/>
+    <timestep time="103.00"/>
+    <timestep time="104.00"/>
+    <timestep time="105.00"/>
+    <timestep time="106.00"/>
+    <timestep time="107.00"/>
+    <timestep time="108.00"/>
+    <timestep time="109.00"/>
+    <timestep time="110.00"/>
+    <timestep time="111.00"/>
+    <timestep time="112.00"/>
+    <timestep time="113.00"/>
+    <timestep time="114.00"/>
+    <timestep time="115.00"/>
+    <timestep time="116.00"/>
+    <timestep time="117.00"/>
+    <timestep time="118.00"/>
+    <timestep time="119.00"/>
+    <timestep time="120.00"/>
+    <timestep time="121.00"/>
+    <timestep time="122.00"/>
+    <timestep time="123.00"/>
+    <timestep time="124.00"/>
+    <timestep time="125.00"/>
+    <timestep time="126.00"/>
+    <timestep time="127.00"/>
+    <timestep time="128.00"/>
+    <timestep time="129.00"/>
+    <timestep time="130.00"/>
+    <timestep time="131.00"/>
+    <timestep time="132.00"/>
+    <timestep time="133.00"/>
+    <timestep time="134.00"/>
+    <timestep time="135.00"/>
+    <timestep time="136.00"/>
+    <timestep time="137.00"/>
+    <timestep time="138.00"/>
+    <timestep time="139.00"/>
+</fcd-export>

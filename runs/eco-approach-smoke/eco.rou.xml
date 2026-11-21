@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<routes>
+  <vType id="car" vClass="passenger" speedFactor="normc(1,0,1,1)" sigma="0">
+    <param key="has.glosa.device" value="true" />
+    <param key="device.glosa.range" value="100" />
+    <param key="device.glosa.min-speed" value="5" />
+    <param key="device.glosa.add-switchtime" value="2" />
+    <param key="device.glosa.max-speedfactor" value="0" />
+  </vType>
+  <vehicle id="car-0" type="car" depart="33" departSpeed="max" arrivalPos="70">
+    <route edges="A1B1 B1C1" />
+  </vehicle>
+</routes>

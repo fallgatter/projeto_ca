@@ -1,0 +1,354 @@
+Warning: Teleporting vehicle 'bus-111'; waited too long (yield), lane=':1751771685_4_0', time=590.00.
+Warning: Vehicle 'bus-111' ends teleporting on edge '663076738#0', time=590.00.
+Warning: Teleporting vehicle 'bus-860'; waited too long (yield), lane='1070035662#3_1', time=593.00.
+Warning: Vehicle 'bus-860' ends teleporting on edge '663076738#0', time=595.00.
+Warning: Teleporting vehicle 'bus-1183'; waited too long (jam), lane=':10888578423_1_0', time=1070.00.
+Warning: Vehicle 'bus-1183' ends teleporting on edge '231103933#2', time=1070.00.
+Warning: Teleporting vehicle 'bus-1142'; waited too long (jam), lane='24552999_1', time=1111.00.
+Warning: Vehicle 'bus-1142' ends teleporting on edge '663076736#0', time=1111.00.
+Warning: Teleporting vehicle 'bus-855'; waited too long (yield), lane='670931456_1', time=1113.00.
+Warning: Vehicle 'bus-855' ends teleporting on edge '663076736#0', time=1115.00.
+Warning: Teleporting vehicle 'bus-78'; waited too long (jam), lane='670931456_1', time=1610.00.
+Warning: Vehicle 'bus-78' ends teleporting on edge '231101473#0', time=1610.00.
+Warning: Teleporting vehicle 'car-186'; waited too long (jam), lane='604751524#2_2', time=1843.00.
+Warning: Vehicle 'car-186' ends teleporting on edge '604751526#0', time=1843.00.
+Warning: Teleporting vehicle 'car-681'; waited too long (yield), lane='231103922#2_1', time=1845.00.
+Warning: Vehicle 'car-681' ends teleporting on edge '604751526#0', time=1845.00.
+Warning: Teleporting vehicle 'car-571'; waited too long (jam), lane='1025358702_1', time=1876.00.
+Warning: Vehicle 'car-571' ends teleporting on edge '1092508367#0', time=1876.00.
+Warning: Teleporting vehicle 'bus-978'; waited too long (jam), lane='663076735_1', time=2061.00.
+Warning: Vehicle 'bus-978' ends teleporting on edge '397624480#1', time=2063.00.
+Warning: Teleporting vehicle 'car-1178'; waited too long (yield), lane='1025358702_2', time=2073.00.
+Warning: Vehicle 'car-1178' ends teleporting on edge '1092508367#0', time=2073.00.
+Warning: Teleporting vehicle 'bus-1122'; waited too long (yield), lane='24552999_1', time=2101.00.
+Warning: Teleporting vehicle 'car-683'; waited too long (jam), lane=':1751771685_1_0', time=2102.00.
+Warning: Vehicle 'car-683' ends teleporting on edge '663076738#0', time=2102.00.
+Warning: Vehicle 'bus-1122' ends teleporting on edge '397624480#1', time=2104.00.
+Warning: Teleporting vehicle 'bus-778'; waited too long (jam), lane=':269285962_1_0', time=2111.00.
+Warning: Vehicle 'bus-778' ends teleporting on edge '231103933#0', time=2113.00.
+Warning: Teleporting vehicle 'bus-1250'; waited too long (yield), lane='232923421#3_1', time=2415.00.
+Warning: Vehicle 'bus-1250' ends teleporting on edge '693644750', time=2415.00.
+Warning: Teleporting vehicle 'bus-1345'; waited too long (jam), lane=':10885430113_7_0', time=2421.00.
+Warning: Vehicle 'bus-1345' ends teleporting on edge '-1070035662#3', time=2424.00.
+Warning: Teleporting vehicle 'bus-111'; waited too long (jam), lane='24552999_1', time=2461.00.
+Warning: Vehicle 'bus-111' ends teleporting on edge '663076736#0', time=2461.00.
+Warning: Teleporting vehicle 'bus-173'; waited too long (jam), lane='-1008175883#0_1', time=2463.00.
+Warning: Teleporting vehicle 'bus-105'; waited too long (yield), lane=':1751771685_4_0', time=2465.00.
+Warning: Vehicle 'bus-105' ends teleporting on edge '663076738#0', time=2465.00.
+Warning: Vehicle 'bus-173' ends teleporting on edge '-1209866604#0', time=2465.00.
+Warning: Teleporting vehicle 'bus-845'; waited too long (jam), lane='-435222679#2_1', time=2556.00.
+Warning: Teleporting vehicle 'bus-924'; waited too long (yield), lane='663076719_2', time=2557.00.
+Warning: Vehicle 'bus-924' ends teleporting on edge '670931448', time=2557.00.
+Warning: Vehicle 'bus-845' ends teleporting on edge '-435222679#0', time=2558.00.
+Warning: Teleporting vehicle 'car-839'; waited too long (yield), lane='231103922#2_1', time=2559.00.
+Warning: Vehicle 'car-839' ends teleporting on edge '604751526#0', time=2559.00.
+Warning: Teleporting vehicle 'car-1212'; waited too long (jam), lane='663076734_1', time=2596.00.
+Warning: Vehicle 'car-1212' ends teleporting on edge '435222678', time=2596.00.
+Warning: Teleporting vehicle 'car-1046'; waited too long (yield), lane=':1362816448_8_0', time=2597.00.
+Warning: Vehicle 'car-1046' ends teleporting on edge '1346157040#1', time=2599.00.
+Warning: Teleporting vehicle 'car-1490'; waited too long (jam), lane=':1377112136_4_0', time=2632.00.
+Warning: Vehicle 'car-1490' ends teleporting on edge '1338768166#0', time=2632.00.
+Warning: Teleporting vehicle 'bus-360'; waited too long (jam), lane=':10888578433_1_2', time=2708.00.
+Warning: Vehicle 'bus-360' ends teleporting on edge '663076727#2', time=2714.00.
+Warning: Teleporting vehicle 'bus-1102'; waited too long (jam), lane='232923421#3_1', time=2722.00.
+Warning: Vehicle 'bus-1102' ends teleporting on edge '693644750', time=2722.00.
+Warning: Teleporting vehicle 'bus-1355'; waited too long (yield), lane='232923421#0_1', time=2734.00.
+Warning: Vehicle 'bus-1355' ends teleporting on edge '232923421#1', time=2734.00.
+Warning: Teleporting vehicle 'bus-1097'; waited too long (yield), lane='24552999_1', time=2821.00.
+Warning: Vehicle 'bus-1097' ends teleporting on edge '397624480#0', time=2823.00.
+Warning: Teleporting vehicle 'bus-919'; waited too long (yield), lane='232923421#3_1', time=3031.00.
+Warning: Vehicle 'bus-919' ends teleporting on edge '693644750', time=3031.00.
+Warning: Teleporting vehicle 'car-674'; waited too long (yield), lane='231103922#2_1', time=3097.00.
+Warning: Vehicle 'car-674' ends teleporting on edge '604751526#0', time=3097.00.
+Warning: Teleporting vehicle 'bus-1367'; waited too long (jam), lane=':1751771685_7_0', time=3126.00.
+Warning: Vehicle 'bus-1367' ends teleporting on edge '663076736#0', time=3129.00.
+Warning: Teleporting vehicle 'bus-626'; waited too long (yield), lane='24552999_1', time=3131.00.
+Warning: Vehicle 'bus-626' ends teleporting on edge '397624480#0', time=3133.00.
+Warning: Teleporting vehicle 'bus-629'; waited too long (jam), lane='663076719_2', time=3146.00.
+Warning: Teleporting vehicle 'bus-603'; waited too long (jam), lane=':10888578420_1_0', time=3146.00.
+Warning: Vehicle 'bus-629' ends teleporting on edge '670931448', time=3146.00.
+Warning: Vehicle 'bus-603' ends teleporting on edge '231100863#0', time=3153.00.
+Warning: Teleporting vehicle 'car-1727'; waited too long (yield), lane='435222678_1', time=3172.00.
+Warning: Vehicle 'car-1727' ends teleporting on edge '231100863#0', time=3172.00.
+Warning: Teleporting vehicle 'bus-604'; waited too long (jam), lane=':10885297649_7_0', time=3314.00.
+Warning: Vehicle 'bus-604' ends teleporting on edge '-670931442#0', time=3314.00.
+Warning: Teleporting vehicle 'bus-1340'; waited too long (jam), lane=':10885430113_7_0', time=3503.00.
+Warning: Vehicle 'bus-1340' ends teleporting on edge '-663076739#0', time=3503.00.
+Warning: Teleporting vehicle 'bus-652'; waited too long (jam), lane='24552999_1', time=3541.00.
+Warning: Teleporting vehicle 'bus-841'; waited too long (jam), lane='1070035662#3_1', time=3541.00.
+Warning: Vehicle 'bus-652' ends teleporting on edge '663076736#0', time=3541.00.
+Warning: Teleporting vehicle 'bus-152'; waited too long (jam), lane='231103933#2_1', time=3542.00.
+Warning: Teleporting vehicle 'bus-857'; waited too long (yield), lane='670931456_1', time=3544.00.
+Warning: Vehicle 'bus-841' ends teleporting on edge '397624480#0', time=3544.00.
+Warning: Vehicle 'bus-857' ends teleporting on edge '231101475', time=3544.00.
+Warning: Vehicle 'bus-152' ends teleporting on edge '397624480#0', time=3545.00.
+Warning: Teleporting vehicle 'bus-937'; waited too long (yield), lane='232923421#3_1', time=3560.00.
+Warning: Vehicle 'bus-937' ends teleporting on edge '693644750', time=3560.00.
+Warning: Teleporting vehicle 'bus-180'; waited too long (yield), lane='343540927#11_1', time=3677.00.
+Warning: Vehicle 'bus-180' ends teleporting on edge '232923421#1', time=3815.00.
+Warning: Teleporting vehicle 'bus-906'; waited too long (jam), lane=':10888578423_1_0', time=3855.00.
+Warning: Vehicle 'bus-906' ends teleporting on edge '231103933#2', time=3855.00.
+Warning: Teleporting vehicle 'bus-769'; waited too long (yield), lane='232923421#3_1', time=3868.00.
+Warning: Vehicle 'bus-769' ends teleporting on edge '693644750', time=3868.00.
+Warning: Teleporting vehicle 'bus-1092'; waited too long (yield), lane='232923421#0_1', time=3879.00.
+Warning: Vehicle 'bus-1092' ends teleporting on edge '232923421#1', time=3879.00.
+Warning: Teleporting vehicle 'bus-934'; waited too long (yield), lane='343540920#25_3', time=3890.00.
+Warning: Teleporting vehicle 'bus-99'; waited too long (yield), lane='670931456_1', time=3904.00.
+Warning: Vehicle 'bus-99' ends teleporting on edge '663076736#0', time=3906.00.
+Warning: Teleporting vehicle 'bus-608'; waited too long (jam), lane=':266967762_1_0', time=3909.00.
+Warning: Vehicle 'bus-608' ends teleporting on edge '-1070035662#3', time=3909.00.
+Warning: Teleporting vehicle 'bus-1367'; waited too long (yield), lane='-1008175883#0_1', time=3919.00.
+Warning: Vehicle 'bus-1367' ends teleporting on edge '-1209866604#0', time=3921.00.
+Warning: Vehicle 'bus-934' ends teleporting on edge '232923421#1', time=3961.00.
+Warning: Teleporting vehicle 'car-924'; waited too long (yield), lane='231103922#2_1', time=4096.00.
+Warning: Vehicle 'car-924' ends teleporting on edge '604751526#0', time=4096.00.
+Warning: Teleporting vehicle 'bus-674'; waited too long (jam), lane='232923421#3_1', time=4175.00.
+Warning: Vehicle 'bus-674' ends teleporting on edge '693644750', time=4175.00.
+Warning: Teleporting vehicle 'bus-746'; waited too long (jam), lane='232923421#0_1', time=4187.00.
+Warning: Teleporting vehicle 'bus-825'; waited too long (jam), lane='343540920#25_3', time=4197.00.
+Warning: Vehicle 'bus-825' ends teleporting on edge '232923421#0', time=4202.00.
+Warning: Teleporting vehicle 'bus-537'; waited too long (yield), lane='343540927#11_1', time=4216.00.
+Warning: Teleporting vehicle 'car-1768'; waited too long (jam), lane='670931456_1', time=4218.00.
+Warning: Vehicle 'car-1768' ends teleporting on edge '397624480#1', time=4222.00.
+Warning: Teleporting vehicle 'bus-1371'; waited too long (jam), lane=':1751771685_7_0', time=4263.00.
+Warning: Vehicle 'bus-1371' ends teleporting on edge '663076736#0', time=4266.00.
+Warning: Vehicle 'bus-537' ends teleporting on edge '232923421#1', time=4354.00.
+Warning: Vehicle 'bus-746' ends teleporting on edge '397624480#0', time=4388.00.
+Warning: Teleporting vehicle 'car-1873'; waited too long (jam), lane=':10888578433_1_2', time=4402.00.
+Warning: Vehicle 'car-1873' ends teleporting on edge '663076729', time=4405.00.
+Warning: Teleporting vehicle 'bus-406'; waited too long (jam), lane='232923421#0_1', time=4496.00.
+Warning: Vehicle 'bus-406' ends teleporting on edge '232923421#1', time=4496.00.
+Warning: Teleporting vehicle 'bus-1260'; waited too long (yield), lane='343540920#25_3', time=4504.00.
+Warning: Teleporting vehicle 'bus-711'; waited too long (jam), lane=':10885430113_7_0', time=4670.00.
+Warning: Vehicle 'bus-711' ends teleporting on edge '397624480#1', time=4676.00.
+Warning: Teleporting vehicle 'bus-1256'; waited too long (jam), lane='24552999_1', time=4711.00.
+Warning: Vehicle 'bus-1256' ends teleporting on edge '663076736#0', time=4711.00.
+Warning: Teleporting vehicle 'bus-90'; waited too long (yield), lane='670931456_1', time=4714.00.
+Warning: Teleporting vehicle 'bus-540'; waited too long (jam), lane=':269285963_1_0', time=4717.00.
+Warning: Vehicle 'bus-90' ends teleporting on edge '-1070035662#3', time=4717.00.
+Warning: Vehicle 'bus-540' ends teleporting on edge '663076739#1', time=4722.00.
+Warning: Teleporting vehicle 'bus-1242'; waited too long (yield), lane='232923421#3_1', time=4733.00.
+Warning: Vehicle 'bus-1242' ends teleporting on edge '693644750', time=4733.00.
+Warning: Teleporting vehicle 'bus-1401'; waited too long (jam), lane=':10888578433_1_1', time=4761.00.
+Warning: Vehicle 'bus-1401' ends teleporting on edge '663076727#0', time=4765.00.
+Warning: Teleporting vehicle 'bus-1371'; waited too long (wrong lane), lane='231091475_2', time=4773.00.
+Warning: Vehicle 'bus-1371' ends teleporting on edge '-1209866604#0', time=4775.00.
+Warning: Teleporting vehicle 'bus-1116'; waited too long (yield), lane='232923421#0_1', time=4804.00.
+Warning: Teleporting vehicle 'bus-1112'; waited too long (yield), lane='343540920#25_3', time=4813.00.
+Warning: Teleporting vehicle 'bus-721'; waited too long (yield), lane='343540927#11_1', time=4848.00.
+Warning: Vehicle 'bus-1112' ends teleporting on edge '232923421#1', time=4882.00.
+Warning: Vehicle 'bus-1260' ends teleporting on edge '663076739#1', time=4957.00.
+Warning: Teleporting vehicle 'bus-1023'; waited too long (jam), lane='232923421#3_1', time=5040.00.
+Warning: Vehicle 'bus-1023' ends teleporting on edge '693644750', time=5040.00.
+Warning: Teleporting vehicle 'bus-187'; waited too long (yield), lane='-663066062_1', time=5041.00.
+Warning: Vehicle 'bus-187' ends teleporting on edge '663066063', time=5041.00.
+Warning: Vehicle 'bus-1116' ends teleporting on edge '663076739#1', time=5050.00.
+Warning: Teleporting vehicle 'bus-1379'; waited too long (jam), lane='24552999_1', time=5071.00.
+Warning: Teleporting vehicle 'bus-879'; waited too long (jam), lane=':266967762_1_0', time=5071.00.
+Warning: Vehicle 'bus-879' ends teleporting on edge '-1070035662#3', time=5071.00.
+Warning: Vehicle 'bus-1379' ends teleporting on edge '663076736#0', time=5071.00.
+Warning: Teleporting vehicle 'bus-1177'; waited too long (jam), lane='232923421#0_1', time=5112.00.
+Warning: Teleporting vehicle 'bus-669'; waited too long (jam), lane='343540927#11_1', time=5156.00.
+Warning: Vehicle 'bus-1177' ends teleporting on edge '231103933#0', time=5246.00.
+Warning: Teleporting vehicle 'bus-1128'; waited too long (jam), lane='232923421#3_1', time=5347.00.
+Warning: Vehicle 'bus-721' ends teleporting on edge '663076739#1', time=5389.00.
+Warning: Teleporting vehicle 'bus-119'; waited too long (wrong lane), lane='1070035663_2', time=5408.00.
+Warning: Vehicle 'bus-119' ends teleporting on edge '1070035662#0', time=5408.00.
+Warning: Teleporting vehicle 'car-1492'; waited too long (yield), lane='232923421#0_1', time=5418.00.
+Warning: Vehicle 'car-1492' teleports beyond arrival edge '232923421#2', time=5420.00.
+Warning: Teleporting vehicle 'bus-1181'; waited too long (yield), lane='343540920#25_3', time=5432.00.
+Warning: Teleporting vehicle 'bus-67'; waited too long (yield), lane='670931456_1', time=5434.00.
+Warning: Teleporting vehicle 'bus-1388'; waited too long (jam), lane=':1751771685_7_0', time=5434.00.
+Warning: Teleporting vehicle 'bus-86'; waited too long (jam), lane='24552999_1', time=5436.00.
+Warning: Vehicle 'bus-86' ends teleporting on edge '663076736#0', time=5436.00.
+Warning: Teleporting vehicle 'bus-1250'; waited too long (jam), lane=':269285963_1_0', time=5437.00.
+Warning: Vehicle 'bus-1250' ends teleporting on edge '231101475', time=5437.00.
+Warning: Vehicle 'bus-67' ends teleporting on edge '-1070035662#3', time=5437.00.
+Warning: Vehicle 'bus-1388' ends teleporting on edge '663076736#0', time=5437.00.
+Warning: Teleporting vehicle 'bus-766'; waited too long (yield), lane='343540927#11_1', time=5477.00.
+Warning: Vehicle 'bus-1128' ends teleporting on edge '663076739#1', time=5483.00.
+Warning: Teleporting vehicle 'bus-846'; waited too long (yield), lane='504243289#2_1', time=5494.00.
+Warning: Vehicle 'bus-846' ends teleporting on edge '1008175883#4', time=5538.00.
+Warning: Vehicle 'bus-669' ends teleporting on edge '231103933#0', time=5552.00.
+Warning: Teleporting vehicle 'bus-1355'; waited too long (yield), lane='232923421#3_1', time=5654.00.
+Warning: Vehicle 'bus-1355' ends teleporting on edge '693644750', time=5654.00.
+Warning: Vehicle 'bus-766' ends teleporting on edge '232923421#1', time=5668.00.
+Warning: Teleporting vehicle 'bus-1169'; waited too long (jam), lane='343540920#25_3', time=5739.00.
+Warning: Vehicle 'bus-1181' ends teleporting on edge '231103933#0', time=5739.00.
+Warning: Teleporting vehicle 'bus-1156'; waited too long (yield), lane='343540920#24_3', time=5747.00.
+Warning: Vehicle 'bus-1156' ends teleporting on edge '343540920#25', time=5749.00.
+Warning: Teleporting vehicle 'car-3077'; waited too long (yield), lane='663076729_3', time=5764.00.
+Warning: Vehicle 'car-3077' ends teleporting on edge '663076727#0', time=5764.00.
+Warning: Teleporting vehicle 'car-2883'; waited too long (jam), lane='663076728#3_1', time=5791.00.
+Warning: Vehicle 'car-2883' ends teleporting on edge '231100857', time=5792.00.
+Warning: Teleporting vehicle 'car-3169'; waited too long (jam), lane=':269222331_1_2', time=5794.00.
+Warning: Vehicle 'car-3169' ends teleporting on edge '663076729', time=5796.00.
+Warning: Teleporting vehicle 'bus-617'; waited too long (yield), lane='504243289#2_1', time=5802.00.
+Warning: Vehicle 'bus-617' ends teleporting on edge '663076728#0', time=5805.00.
+Warning: Teleporting vehicle 'car-2886'; waited too long (yield), lane='231103922#2_1', time=5806.00.
+Warning: Vehicle 'car-2886' ends teleporting on edge '604751526#0', time=5806.00.
+Warning: Teleporting vehicle 'bus-577'; waited too long (yield), lane='663076721#4_1', time=5810.00.
+Warning: Vehicle 'bus-1169' ends teleporting on edge '232923421#1', time=5877.00.
+Warning: Teleporting vehicle 'bus-893'; waited too long (wrong lane), lane='1070035663_2', time=5931.00.
+Warning: Vehicle 'bus-893' ends teleporting on edge '1070035662#0', time=5931.00.
+Warning: Vehicle 'bus-577' ends teleporting on edge '1008175883#4', time=5941.00.
+Warning: Teleporting vehicle 'bus-1072'; waited too long (yield), lane='232923421#0_1', time=5967.00.
+Warning: Vehicle 'bus-1072' ends teleporting on edge '232923421#1', time=5967.00.
+Warning: Teleporting vehicle 'car-3342'; waited too long (jam), lane='1025358702_1', time=6016.00.
+Warning: Vehicle 'car-3342' ends teleporting on edge '1092508367#0', time=6016.00.
+Warning: Teleporting vehicle 'bus-542'; waited too long (yield), lane='343540927#11_1', time=6017.00.
+Warning: Teleporting vehicle 'bus-1125'; waited too long (yield), lane='343540920#25_3', time=6047.00.
+Warning: Vehicle 'bus-1125' ends teleporting on edge '232923421#0', time=6085.00.
+Warning: Vehicle 'bus-542' ends teleporting on edge '232923421#1', time=6144.00.
+Warning: Teleporting vehicle 'car-3537'; waited too long (jam), lane='1025358702_2', time=6198.00.
+Warning: Vehicle 'car-3537' ends teleporting on edge '1092508367#0', time=6198.00.
+Warning: Teleporting vehicle 'car-3255'; waited too long (yield), lane='1025358702_1', time=6320.00.
+Warning: Vehicle 'car-3255' ends teleporting on edge '1092508367#0', time=6320.00.
+Warning: Teleporting vehicle 'bus-505'; waited too long (jam), lane='343540927#11_1', time=6324.00.
+Warning: Teleporting vehicle 'bus-1070'; waited too long (jam), lane='343540920#25_3', time=6355.00.
+Warning: Teleporting vehicle 'bus-1244'; waited too long (yield), lane='343540920#24_3', time=6378.00.
+Warning: Vehicle 'bus-1244' ends teleporting on edge '343540920#25', time=6378.00.
+Warning: Teleporting vehicle 'bus-1222'; waited too long (jam), lane='232923421#0_1', time=6384.00.
+Warning: Vehicle 'bus-1222' ends teleporting on edge '232923421#1', time=6384.00.
+Warning: Vehicle 'bus-1070' ends teleporting on edge '232923421#0', time=6384.00.
+Warning: Vehicle 'bus-505' ends teleporting on edge '232923421#0', time=6394.00.
+Warning: Teleporting vehicle 'bus-554'; waited too long (jam), lane='24552999_1', time=6421.00.
+Warning: Teleporting vehicle 'bus-893'; waited too long (jam), lane=':266967762_1_0', time=6421.00.
+Warning: Vehicle 'bus-893' ends teleporting on edge '-1070035662#3', time=6421.00.
+Warning: Vehicle 'bus-554' ends teleporting on edge '663076736#0', time=6421.00.
+Warning: Teleporting vehicle 'bus-1092'; waited too long (jam), lane=':269285962_1_0', time=6430.00.
+Warning: Teleporting vehicle 'bus-620'; waited too long (yield), lane='663076721#4_1', time=6432.00.
+Warning: Vehicle 'bus-1092' ends teleporting on edge '231103933#0', time=6432.00.
+Warning: Vehicle 'bus-620' ends teleporting on edge '504243289#0', time=6432.00.
+Warning: Teleporting vehicle 'car-3240'; waited too long (jam), lane='1025358702_1', time=6435.00.
+Warning: Vehicle 'car-3240' ends teleporting on edge '1092508367#0', time=6435.00.
+Warning: Teleporting vehicle 'car-3395'; waited too long (jam), lane='663076734_1', time=6466.00.
+Warning: Vehicle 'car-3395' ends teleporting on edge '231100863#0', time=6468.00.
+Warning: Teleporting vehicle 'bus-887'; waited too long (jam), lane=':10885297649_7_0', time=6554.00.
+Warning: Vehicle 'bus-887' ends teleporting on edge '-435222679#0', time=6559.00.
+Warning: Teleporting vehicle 'bus-605'; waited too long (yield), lane=':1772923979_7_0', time=6604.00.
+Warning: Teleporting vehicle 'bus-558'; waited too long (yield), lane=':1772923989_4_0', time=6606.00.
+Warning: Vehicle 'bus-605' ends teleporting on edge '231100863#0', time=6606.00.
+Warning: Vehicle 'bus-558' ends teleporting on edge '670931443#0', time=6606.00.
+Warning: Teleporting vehicle 'bus-535'; waited too long (jam), lane='343540927#8_1', time=6653.00.
+Warning: Vehicle 'bus-535' ends teleporting on edge '343540927#9', time=6653.00.
+Warning: Teleporting vehicle 'bus-907'; waited too long (jam), lane='343540927#11_1', time=6695.00.
+Warning: Vehicle 'bus-907' ends teleporting on edge '232923421#0', time=6715.00.
+Warning: Teleporting vehicle 'car-3476'; waited too long (yield), lane='231103922#2_1', time=6880.00.
+Warning: Vehicle 'car-3476' ends teleporting on edge '604751526#0', time=6880.00.
+Warning: Teleporting vehicle 'bus-81'; waited too long (jam), lane='670931456_1', time=7007.00.
+Warning: Teleporting vehicle 'bus-715'; waited too long (yield), lane='343540927#11_1', time=7009.00.
+Warning: Vehicle 'bus-81' ends teleporting on edge '397624480#1', time=7011.00.
+Warning: Teleporting vehicle 'bus-153'; waited too long (jam), lane='343540927#8_1', time=7016.00.
+Warning: Vehicle 'bus-153' ends teleporting on edge '232923421#1', time=7076.00.
+Warning: Teleporting vehicle 'car-4084'; waited too long (jam), lane='1025358702_1', time=7097.00.
+Warning: Vehicle 'car-4084' ends teleporting on edge '1092508367#0', time=7097.00.
+Warning: Vehicle 'bus-715' ends teleporting on edge '232923421#1', time=7136.00.
+Warning: Teleporting vehicle 'bus-864'; waited too long (yield), lane='24552999_1', time=7141.00.
+Warning: Vehicle 'bus-864' ends teleporting on edge '397624480#1', time=7144.00.
+Warning: Teleporting vehicle 'bus-1181'; waited too long (jam), lane=':269285963_1_0', time=7147.00.
+Warning: Teleporting vehicle 'bus-1169'; waited too long (jam), lane=':269285962_1_0', time=7151.00.
+Warning: Vehicle 'bus-1181' ends teleporting on edge '663076739#1', time=7152.00.
+Warning: Vehicle 'bus-1169' ends teleporting on edge '231103933#0', time=7153.00.
+Warning: Teleporting vehicle 'bus-1106'; waited too long (jam), lane='232923421#0_1', time=7193.00.
+Warning: Teleporting vehicle 'bus-939'; waited too long (yield), lane='343540920#25_3', time=7202.00.
+Warning: Vehicle 'bus-939' ends teleporting on edge '232923421#0', time=7202.00.
+Warning: Vehicle 'bus-1106' ends teleporting on edge '231103933#0', time=7316.00.
+Warning: Teleporting vehicle 'bus-432'; waited too long (jam), lane='343540927#11_1', time=7317.00.
+Warning: Teleporting vehicle 'bus-421'; waited too long (yield), lane='343540927#8_1', time=7324.00.
+Warning: Vehicle 'bus-421' ends teleporting on edge '343540927#9', time=7324.00.
+Warning: Teleporting vehicle 'bus-68'; waited too long (yield), lane=':1751771685_4_0', time=7449.00.
+Warning: Vehicle 'bus-68' ends teleporting on edge '663076738#0', time=7449.00.
+Warning: Teleporting vehicle 'bus-497'; waited too long (jam), lane=':10888578423_1_0', time=7453.00.
+Warning: Vehicle 'bus-497' ends teleporting on edge '231103933#2', time=7453.00.
+Warning: Teleporting vehicle 'bus-1072'; waited too long (yield), lane='232923421#3_1', time=7455.00.
+Warning: Teleporting vehicle 'car-3692'; waited too long (yield), lane='663076735_1', time=7467.00.
+Warning: Vehicle 'car-3692' ends teleporting on edge '397624480#1', time=7469.00.
+Warning: Vehicle 'bus-432' ends teleporting on edge '232923421#1', time=7472.00.
+Warning: Teleporting vehicle 'bus-1133'; waited too long (yield), lane='232923421#0_1', time=7500.00.
+Warning: Teleporting vehicle 'bus-1244'; waited too long (yield), lane='343540920#25_3', time=7509.00.
+Warning: Vehicle 'bus-1244' ends teleporting on edge '232923421#0', time=7510.00.
+Warning: Teleporting vehicle 'bus-1110'; waited too long (yield), lane='343540920#24_3', time=7547.00.
+Warning: Vehicle 'bus-1110' ends teleporting on edge '343540920#25', time=7547.00.
+Warning: Vehicle 'bus-1072' ends teleporting on edge '663076739#1', time=7575.00.
+Warning: Teleporting vehicle 'bus-702'; waited too long (jam), lane='343540927#8_1', time=7641.00.
+Warning: Vehicle 'bus-702' ends teleporting on edge '343540927#9', time=7641.00.
+Warning: Teleporting vehicle 'car-3662'; waited too long (yield), lane='231103922#2_1', time=7696.00.
+Warning: Vehicle 'car-3662' ends teleporting on edge '604751526#0', time=7696.00.
+Warning: Vehicle 'bus-1133' ends teleporting on edge '-1070035662#3', time=7744.00.
+Warning: Teleporting vehicle 'bus-497'; waited too long (jam), lane='231103933#2_1', time=7754.00.
+Warning: Teleporting vehicle 'bus-1100'; waited too long (jam), lane='693644750_1', time=7756.00.
+Warning: Teleporting vehicle 'bus-1240'; waited too long (jam), lane=':10885430113_7_0', time=7757.00.
+Warning: Vehicle 'bus-1240' ends teleporting on edge '-663076739#0', time=7757.00.
+Warning: Vehicle 'bus-497' ends teleporting on edge '397624480#1', time=7758.00.
+Warning: Teleporting vehicle 'bus-965'; waited too long (jam), lane='232923421#3_1', time=7763.00.
+Warning: Teleporting vehicle 'bus-572'; waited too long (jam), lane='24552999_1', time=7771.00.
+Warning: Teleporting vehicle 'bus-627'; waited too long (jam), lane='1070035662#3_1', time=7771.00.
+Warning: Vehicle 'bus-572' ends teleporting on edge '663076736#0', time=7771.00.
+Warning: Teleporting vehicle 'bus-669'; waited too long (yield), lane='670931456_1', time=7773.00.
+Warning: Vehicle 'bus-627' ends teleporting on edge '397624480#0', time=7774.00.
+Warning: Vehicle 'bus-669' ends teleporting on edge '663076739#1', time=7778.00.
+Warning: Teleporting vehicle 'bus-751'; waited too long (jam), lane='232923421#0_1', time=7808.00.
+Warning: Vehicle 'bus-751' ends teleporting on edge '232923421#1', time=7808.00.
+Warning: Teleporting vehicle 'bus-950'; waited too long (yield), lane='343540927#11_1', time=7811.00.
+Warning: Teleporting vehicle 'car-3952'; waited too long (jam), lane='604751525#3_2', time=7815.00.
+Warning: Teleporting vehicle 'bus-917'; waited too long (jam), lane='343540920#25_3', time=7817.00.
+Warning: Vehicle 'bus-917' ends teleporting on edge '232923421#0', time=7818.00.
+Warning: Vehicle 'car-3952' ends teleporting on edge '663076729', time=7819.00.
+Warning: Vehicle 'bus-1100' ends teleporting on edge '397624480#0', time=7836.00.
+Warning: Vehicle 'bus-965' ends teleporting on edge '663076739#1', time=7846.00.
+Warning: Teleporting vehicle 'bus-1191'; waited too long (yield), lane='343540920#21_3', time=7864.00.
+Warning: Vehicle 'bus-1191' ends teleporting on edge '343540920#22', time=7864.00.
+Warning: Teleporting vehicle 'car-4327'; waited too long (jam), lane='604751524#2_2', time=7873.00.
+Warning: Vehicle 'car-4327' ends teleporting on edge '604751526#0', time=7873.00.
+Warning: Vehicle 'bus-950' ends teleporting on edge '232923421#1', time=7937.00.
+Warning: Teleporting vehicle 'car-4860'; waited too long (yield), lane='386353438_2', time=7939.00.
+Warning: Vehicle 'car-4860' ends teleporting on edge '1101617480', time=7939.00.
+Warning: Teleporting vehicle 'bus-1043'; waited too long (jam), lane='343540927#8_1', time=8002.00.
+Warning: Vehicle 'bus-1043' ends teleporting on edge '232923421#1', time=8109.00.
+Warning: Teleporting vehicle 'bus-1125'; waited too long (yield), lane='232923421#0_1', time=8116.00.
+Warning: Teleporting vehicle 'bus-725'; waited too long (jam), lane='343540927#11_1', time=8118.00.
+Warning: Vehicle 'bus-1125' ends teleporting on edge '232923421#2', time=8118.00.
+Warning: Teleporting vehicle 'bus-1252'; waited too long (yield), lane='343540920#25_3', time=8123.00.
+Warning: Vehicle 'bus-1252' ends teleporting on edge '232923421#0', time=8126.00.
+Warning: Vehicle 'bus-725' ends teleporting on edge '232923421#1', time=8213.00.
+Warning: Teleporting vehicle 'car-3217'; waited too long (yield), lane='231103922#2_1', time=8231.00.
+Warning: Vehicle 'car-3217' ends teleporting on edge '604751526#0', time=8231.00.
+Warning: Teleporting vehicle 'car-4773'; waited too long (jam), lane='1025358702_1', time=8268.00.
+Warning: Vehicle 'car-4773' ends teleporting on edge '1092508367#0', time=8268.00.
+Warning: Teleporting vehicle 'car-4318'; waited too long (jam), lane=':10888578433_1_2', time=8328.00.
+Warning: Vehicle 'car-4318' ends teleporting on edge '604751525#5', time=8329.00.
+Warning: Teleporting vehicle 'car-4704'; waited too long (jam), lane='1025358702_2', time=8357.00.
+Warning: Vehicle 'car-4704' ends teleporting on edge '1092508367#0', time=8357.00.
+Warning: Teleporting vehicle 'bus-1191'; waited too long (wrong lane), lane='343540920#25_2', time=8427.00.
+Warning: Teleporting vehicle 'bus-1358'; waited too long (yield), lane='343540927#11_1', time=8430.00.
+Warning: Teleporting vehicle 'bus-1119'; waited too long (yield), lane='343540920#24_3', time=8448.00.
+Warning: Vehicle 'bus-1119' ends teleporting on edge '343540920#25', time=8448.00.
+Warning: Teleporting vehicle 'car-4835'; waited too long (jam), lane='670931456_1', time=8450.00.
+Warning: Vehicle 'car-4835' ends teleporting on edge '397624480#0', time=8453.00.
+Warning: Vehicle 'bus-1191' ends teleporting on edge '232923421#1', time=8493.00.
+Warning: Vehicle 'bus-1358' ends teleporting on edge '232923421#1', time=8509.00.
+Warning: Teleporting vehicle 'car-3237'; waited too long (yield), lane='231103922#2_1', time=8536.00.
+Warning: Vehicle 'car-3237' ends teleporting on edge '604751526#0', time=8536.00.
+Warning: Teleporting vehicle 'car-4686'; waited too long (yield), lane='1025358702_1', time=8573.00.
+Warning: Vehicle 'car-4686' ends teleporting on edge '1092508367#0', time=8573.00.
+Warning: Teleporting vehicle 'car-4289'; waited too long (jam), lane=':6397771410_4_2', time=8589.00.
+Warning: Teleporting vehicle 'car-4177'; waited too long (jam), lane='604751526#0_3', time=8589.00.
+Warning: Vehicle 'car-4177' ends teleporting on edge '604751526#1', time=8589.00.
+Warning: Vehicle 'car-4289' ends teleporting on edge '604751526#1', time=8590.00.
+Warning: Teleporting vehicle 'car-4680'; waited too long (yield), lane='1025358702_2', time=8661.00.
+Warning: Vehicle 'car-4680' ends teleporting on edge '1092508367#0', time=8661.00.
+Warning: Teleporting vehicle 'bus-739'; waited too long (jam), lane='343540927#11_1', time=8737.00.
+Warning: Teleporting vehicle 'bus-369'; waited too long (yield), lane='343540927#8_1', time=8751.00.
+Warning: Teleporting vehicle 'bus-87'; waited too long (yield), lane='504243289#2_1', time=8767.00.
+Warning: Teleporting vehicle 'bus-1094'; waited too long (yield), lane='343540920#21_3', time=8768.00.
+Warning: Vehicle 'bus-1094' ends teleporting on edge '343540920#22', time=8769.00.
+Warning: Teleporting vehicle 'bus-582'; waited too long (jam), lane='663076728#1_1', time=8773.00.
+Warning: Teleporting vehicle 'bus-641'; waited too long (yield), lane='663076721#4_1', time=8778.00.
+Warning: Vehicle 'bus-582' ends teleporting on edge '231100857', time=8802.00.
+Warning: Vehicle 'bus-87' ends teleporting on edge '1008175883#4', time=8836.00.
+Warning: Vehicle 'bus-369' ends teleporting on edge '232923421#1', time=8838.00.
+Warning: Vehicle 'bus-739' ends teleporting on edge '232923421#1', time=8874.00.
+Warning: Teleporting vehicle 'car-3512'; waited too long (yield), lane='231103922#2_1', time=8895.00.
+Warning: Vehicle 'car-3512' ends teleporting on edge '604751526#0', time=8895.00.
+Warning: Vehicle 'bus-641' ends teleporting on edge '231100857', time=8901.00.

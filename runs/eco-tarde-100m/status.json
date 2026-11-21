@@ -1,0 +1,1 @@
+{"schema_version": "1.0", "kind": "simulation.status", "state": "failed", "error": "Falha ao iniciar o SUMO via TraCI. Consulte C:\\Users\\Pedro Henrique\\Desktop\\Estudos\\Ciências do Ambiente\\projeto_ca\\runs\\eco-tarde-100m\\sumo-errors.log. (Could not connect in 11 tries)"}

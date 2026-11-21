@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<additional>
+  <!-- Onda Verde estimada na Av. Presidente Kennedy, sudoeste para nordeste, 50 km/h. Ciclo e fases da malha SUMO. -->
+  <!-- Verde Kennedy na fase 2. Distancia acumulada 0 m, chegada t=0 s. -->
+  <tlLogic id="1362816448" type="static" programID="kennedy50" offset="45">
+    <phase duration="40" state="GGgrrrrGggr" />
+    <phase duration="5" state="yyyrrrryyyr" />
+    <phase duration="35" state="rrrgGGGrrrG" />
+    <phase duration="5" state="rrrgGGGrrrr" />
+    <phase duration="5" state="rrryyyyrrrr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 0. Distancia acumulada 305 m, chegada t=22 s. -->
+  <tlLogic id="2381152027" type="static" programID="kennedy50" offset="22">
+    <phase duration="77" state="GGr" />
+    <phase duration="3" state="yyr" />
+    <phase duration="5" state="rrG" />
+    <phase duration="5" state="rrr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 2. Distancia acumulada 1133 m, chegada t=82 s. -->
+  <tlLogic id="267193378" type="static" programID="kennedy50" offset="37">
+    <phase duration="39" state="GGGGGrrrrrrr" />
+    <phase duration="6" state="yyyyyrrrrrrr" />
+    <phase duration="34" state="rrrrrGGGGGGG" />
+    <phase duration="5" state="rrrrrGGGGGGr" />
+    <phase duration="6" state="rrrrryyyyyyr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 0. Distancia acumulada 1325 m, chegada t=95 s. -->
+  <tlLogic id="267193379" type="static" programID="kennedy50" offset="5">
+    <phase duration="34" state="gGGGGrrrG" />
+    <phase duration="5" state="gGGGGrrrr" />
+    <phase duration="6" state="yyyyyrrrr" />
+    <phase duration="39" state="rrrrrGGGr" />
+    <phase duration="6" state="rrrrryyyr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 0. Distancia acumulada 1584 m, chegada t=114 s. -->
+  <tlLogic id="267193282" type="static" programID="kennedy50" offset="24">
+    <phase duration="37" state="gGGGGrrrrGr" />
+    <phase duration="5" state="gGGGGrrrrrr" />
+    <phase duration="3" state="yyyyyrrrrrr" />
+    <phase duration="37" state="rrrrrGGGGrG" />
+    <phase duration="5" state="rrrrrGGGGrr" />
+    <phase duration="3" state="rrrrryyyyrr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 3. Distancia acumulada 1679 m, chegada t=121 s. -->
+  <tlLogic id="2047845715" type="static" programID="kennedy50" offset="76">
+    <phase duration="37" state="gGrrrGr" />
+    <phase duration="5" state="gGrrrrr" />
+    <phase duration="3" state="yyrrrrr" />
+    <phase duration="37" state="rrGGGrG" />
+    <phase duration="5" state="rrGGGrr" />
+    <phase duration="3" state="rryyyrr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 0. Distancia acumulada 1901 m, chegada t=137 s. -->
+  <tlLogic id="267193381" type="static" programID="kennedy50" offset="47">
+    <phase duration="37" state="gGGrrrrGr" />
+    <phase duration="5" state="gGGrrrrrr" />
+    <phase duration="3" state="yyyrrrrrr" />
+    <phase duration="37" state="rrrGGGGrG" />
+    <phase duration="5" state="rrrGGGGrr" />
+    <phase duration="3" state="rrryyyyrr" />
+  </tlLogic>
+  <!-- Verde Kennedy na fase 0. Distancia acumulada 2110 m, chegada t=152 s. -->
+  <tlLogic id="267193384" type="static" programID="kennedy50" offset="62">
+    <phase duration="37" state="gGGrrGr" />
+    <phase duration="5" state="gGGrrrr" />
+    <phase duration="3" state="yyyrrrr" />
+    <phase duration="37" state="rrrGGrG" />
+    <phase duration="5" state="rrrGGrr" />
+    <phase duration="3" state="rrryyrr" />
+  </tlLogic>
+</additional>

@@ -1,0 +1,25 @@
+***Starting server on port 57271 ***
+Loading net-file from 'C:\Users\Pedro Henrique\Desktop\Estudos\Ciências do Ambiente\projeto_ca\data\cache\network\curitiba.net.xml' ... done (1905ms).
+Loading additional-files from 'C:\Users\Pedro Henrique\Desktop\Estudos\Ciências do Ambiente\projeto_ca\config\signals\onda-verde-kennedy.add.xml' ... done (0ms).
+Loading route-files incrementally from 'C:\Users\Pedro Henrique\Desktop\Estudos\Ciências do Ambiente\projeto_ca\runs\verifica-ml-integrado\demand.rou.xml'
+Loading done.
+Simulation version 1.28.0 started with time: 0.00.
+Simulation ended at time: 120.00.
+Reason: TraCI requested termination.
+Performance:
+ Duration: 1.88s
+ TraCI-Duration: 1.14s
+ Real time factor: 63.6943
+ UPS: 7434.182590
+ UPS-Persons: 248.407643
+Vehicles:
+ Inserted: 197
+ Running: 115
+ Waiting: 0
+Persons:
+ Inserted: 8
+ Running: 3
+DijkstraRouter answered 272 queries and explored 8.91 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 67 queries and explored 3417.63 edges on average.
+DijkstraRouter spent 0.17s answering queries (2.60ms on average).
