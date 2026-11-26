@@ -123,8 +123,8 @@ No primeiro horário, a curva ajustada estima **137,66 veículos/h** para o bloc
 Os coeficientes permanecem fixos durante a execução. A cada minuto, o controlador atualiza um ajuste por aproximação. Para os $n$ minutos mais recentes, até cinco, ele soma as chegadas observadas ($O$) e as esperadas pela curva ($E$). A tolerância $T=2\sqrt{\max(1,E)}$ reduz a influência de variações pequenas em contagens baixas. O cálculo do erro usa apenas o excesso além dessa tolerância.
 
 $$
-e_m = \frac{60}{n}\operatorname{sgn}(O-E)\max(0,|O-E|-T),
-\qquad r_m=0{,}80\,r_{m-1}+0{,}20\,e_m.
+e_m = \frac{60}{n}\mathrm{sgn}(O-E)\max(0,|O-E|-T),
+\qquad r_m = 0{,}80\,r_{m-1}+0{,}20\,e_m.
 $$
 
 O fator $60/n$ converte o desvio da janela para veículos por hora. A previsão corrigida para o horizonte de 45 s é a curva avaliada no ponto médio desse horizonte, mais $r_m$, com limite inferior de zero. [Regra de correção](../onda_verde_senoidal/flow.py) · [Atualização no controlador](../onda_verde_senoidal/control.py)
