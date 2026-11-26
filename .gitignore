@@ -2,6 +2,9 @@
 .venv/
 .deps/
 __pycache__/
+data/cache/
+runs/
 *.part
-runs/dash-feedback.stderr.log
-runs/dash-picos.console.log
+/config/
+/docs/
+/requirements.txt

@@ -754,8 +754,8 @@ function switchRun(index) {
   $('time').value = state.time;
   $('end-clock').textContent = clock(state.pair.duration, true);
   const date = state.pair.start.slice(0, 10).split('-').reverse().join('/');
-  $('run-date').textContent = state.report.profile === 'escalonado'
-    ? `${date} · demanda escalonada · Fourier de ordem ${state.report.model.harmonics}` : date;
+  const demand = { escalonado: 'demanda escalonada', calibrado: 'demanda calibrada' }[state.report.profile];
+  $('run-date').textContent = demand ? `${date} · ${demand} · Fourier de ordem ${state.report.model.harmonics}` : date;
   setPlaying(false);
   updateMetrics();
 }
@@ -829,7 +829,7 @@ async function init() {
       .sort((a,b) => Number(b.policy === 'revisado')-Number(a.policy === 'revisado'));
     if (!runs.length) throw new Error('Nenhum par da semente 101 disponível.');
     Object.assign(state, {map, report, runs, coefficients: model?.approaches});
-    if (report.profile === 'escalonado') $('rate').value = '1';
+    if (['escalonado', 'calibrado'].includes(report.profile)) $('rate').value = '1';
     state.areas = { ...state.map.corridors, rede: {
       name: 'Quadrilátero inteiro', bounds: state.map.bounds, signals: Object.keys(state.map.lights)
     }};
@@ -842,7 +842,14 @@ async function init() {
       $('corridors').append(button);
     }
     runs.forEach((run, index) => {
-      const option = el('option', `${run.peak === 'manha' ? 'Manhã' : 'Tarde'} · Semente ${run.seed} · ${policyLabels[run.policy]}`);
+      const variants = { pressao: 'Preditivo com pressão de filas', progressao: 'Preditivo com proteção de onda verde',
+        filas: 'Preditivo com prioridade a filas', descarga: 'Preditivo com descarga calibrada',
+        arteriais: 'Preditivo com prioridade às arteriais', prioridade: 'Preditivo com prioridade a ônibus',
+        sincronia: 'Preditivo com coordenação e prioridade a ônibus',
+        atuado: 'Preditivo com ajuste por lacunas', atuado_prioritario: 'Preditivo com ajuste e proteção das arteriais',
+        reservas: 'Preditivo com controle de filas', reservas_ciclo: 'Preditivo com controle de filas e onda verde' };
+      const policy = variants[run.controller_variant] || policyLabels[run.policy];
+      const option = el('option', `${run.peak === 'manha' ? 'Manhã' : 'Tarde'} · Semente ${run.seed} · ${policy}`);
       option.value = index;
       $('run').append(option);
     });

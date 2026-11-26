@@ -11,7 +11,7 @@ from .demand import departure_audit
 from .flow import WINDOW_MINUTES, persistent_error
 from .fourier import fit_order, forecast_error, predict, windows_for
 from .network import CORRIDORS
-from .simulate import CHUNK, FRAME, OUTPUT, PROJECT, WARMUP
+from .simulate import CALIBRATED, CHUNK, FRAME, OUTPUT, PROJECT, WARMUP
 
 
 def ratio(top, bottom):
@@ -168,8 +168,11 @@ def build_report(output=OUTPUT):
     data = read_json(output/'map.json')
     pairs = []
     visits_by_folder = {}
+    calibration = read_json(output/'calibration.json') if (output/'calibration.json').is_file() else None
     variants = ('coordenado', 'revisado', 'otimizado')
-    alternatives = sorted((file for variant in variants for file in output.glob(f'*/*/{variant}/summary.json')),
+    alternatives = sorted((file for variant in variants for peak in ('manha', 'tarde')
+                           for file in (output/peak).glob(f'*/{variant}/summary.json')
+                           if file.parents[1].name.isdecimal()),
                           key=lambda f: (variants.index(f.parent.name), f.parents[2].name, int(f.parents[1].name)))
     for file in alternatives:
         optimized = read_json(file)
@@ -215,6 +218,24 @@ def build_report(output=OUTPUT):
                     pedestrians=dict(n=len(pedestrians), durations=[distribution(tab[k] for k in pedestrians)
                                                                     for tab in pedestrian]),
                     audit=audit_reference(reference, tables[0]))
+        if optimized['control'].get('variant'):
+            pair['controller_variant'] = optimized['control']['variant']
+        if reference.get('profile') in CALIBRATED:
+            from .calibration import eligible, reserved, scores
+
+            baseline = read_json(reference_file.parent/'speeds.json')
+            controlled = read_json(file.parent/'speeds.json')
+            common_edges = sorted(eligible(baseline) & eligible(controlled))
+            held_out = sorted(edge for edge in eligible(baseline) if reserved(edge))
+            if not common_edges or not held_out:
+                raise ValueError('Sem passagens suficientes para validar a velocidade dos replays.')
+            pair['speed_calibration'] = dict(
+                scale=reference['car_scale'],
+                behavior=reference.get('behavior'),
+                holdout=scores(baseline, held_out),
+                before=scores(baseline, common_edges),
+                median_change=round(median(controlled[e]['simulated']-baseline[e]['simulated']
+                                           for e in common_edges), 3))
         archived = OUTPUT/optimized['peak']/str(optimized['seed'])/'referencia'
         if reference.get('profile') == 'escalonado' and (archived/'summary.json').is_file():
             old_inputs = read_json(archived/'summary.json')['inputs']
@@ -257,7 +278,7 @@ def build_report(output=OUTPUT):
                   model=dict(training=model['training'], curves=model_curves, bin_minutes=15,
                              harmonics=model['harmonics']))
     if 'validation' in model:
-        report['profile'] = 'escalonado'
+        report['profile'] = 'calibrado' if calibration else 'escalonado'
         report['model']['validation'] = model['validation']
         fitted_seeds = {run['seed'] for run in model['training']} | set(model['validation']['seeds'])
         holdout = [read_json(file) for file in sorted(output.glob('*/*/referencia/summary.json'))
@@ -271,9 +292,107 @@ def build_report(output=OUTPUT):
                 seeds=sorted({run['seed'] for run in holdout}),
                 mae={str(order): forecast_error(model['approaches'] if order == model['harmonics']
                                                 else fit_order(samples, order), target) for order in orders})
-    write_json(output/'report.json', report)
+    if calibration:
+        write_calibration_report(calibration, pairs, output)
     write_markdown(report, output)
+    write_json(output/'report.json', report)
     print(f'{len(pairs)} comparações verificadas. Painel disponível com o comando serve.', flush=True)
+
+
+def write_calibration_report(calibration, pairs, output):
+    from .calibration import eligible, reserved, scores
+
+    lines = [
+        '# Calibração de velocidade com a TomTom',
+        '',
+        'A mediana histórica de julho de 2026 é um alvo por trecho direcionado e pico. '
+        'Nenhuma velocidade TomTom é aplicada aos veículos neste perfil. '
+        'O SUMO usa o limite disponível na malha e o comportamento de condução do simulador.',
+        '',
+        'O ajuste testa multiplicadores do volume de carros na referência com a semente 17. '
+        'Mantém as rotas existentes como amostra de origem e destino, assim como as partidas dos demais modos. '
+        'Cada valor concorre nos mesmos trechos da amostra de ajuste. A reserva agrupa os trechos pelo ID da via OSM.',
+        '',
+        'São comparadas medianas de percursos completos em trechos de pelo menos 50 m com 10 ou mais passagens. '
+        'O tempo inclui espera ao longo do trecho. A medição usa passos de 1 s e exclui viagens com teletransporte.',
+        '',
+        '| Pico | Fator de demanda | MAE ajuste, inicial → calibrado (km/h) | MAE reserva, inicial → calibrado (km/h) | Trechos da reserva |',
+        '| --- | ---: | ---: | ---: | ---: |',
+    ]
+    if 'official_limits' in calibration:
+        official = calibration['official_limits']
+        lines[5:5] = [
+            f'O GeoCuritiba forneceu limites associados com segurança a {official["matches"]} trechos. '
+            f'Em {official["changed_edges"]}, o limite das faixas de carros foi alterado. '
+            'Trechos sem associação segura mantiveram a velocidade da malha original.',
+            '',
+        ]
+    for peak, data in calibration['peaks'].items():
+        selected = data.get('candidate', str(data['scale']))
+        baseline = 'municipal' if 'candidate' in data else '1.0'
+        fit, holdout = data['fit'], data['holdout']
+        lines.append(f'| {peak.title()} | {data["scale"]:.2f} | '
+                     f'{fit[baseline]["mae"]:.2f} → {fit[selected]["mae"]:.2f} | '
+                     f'{holdout[baseline]["mae"]:.2f} → {holdout[selected]["mae"]:.2f} | {holdout[selected]["n"]} |')
+    if any('candidate' in data for data in calibration['peaks'].values()):
+        lines += ['', 'O ajuste refinado testa conjuntamente o volume de carros, a aceleração, '
+                  'o tempo de seguimento e a imperfeição de condução. Os ensaios usam exclusivamente o limite da malha.']
+    if 'official_limits' in calibration:
+        network_comparison = []
+        for peak, data in calibration['peaks'].items():
+            original = PROJECT/'results_calibrado'/'calibration'/peak/'1.00'/'speeds.json'
+            selected = output/'calibration'/peak/data.get('candidate', f'{data["scale"]:.2f}')/'speeds.json'
+            if original.is_file() and selected.is_file():
+                old, new = read_json(original), read_json(selected)
+                same = sorted(edge for edge in eligible(old) & eligible(new) if reserved(edge))
+                if same:
+                    network_comparison.append(
+                        f'| {peak.title()} | {len(same)} | {scores(old, same)["mae"]:.2f} | {scores(new, same)["mae"]:.2f} |')
+        if network_comparison:
+            lines += [
+                '',
+                'Comparação nas mesmas vias reservadas, da malha original com volume inicial '
+                'à malha com limites municipais e volume selecionado. Todos os ensaios abaixo usam a semente 17 '
+                'e estão livres do teto histórico da TomTom.',
+                '',
+                '| Pico | Trechos em comum | MAE original (km/h) | MAE municipal calibrado (km/h) |',
+                '| --- | ---: | ---: | ---: |',
+                *network_comparison,
+            ]
+    lines += [
+        '',
+        '| Pico | Semente | Carros | MAE na reserva (km/h) | Trechos da reserva | Dentro de 5 km/h na reserva |',
+        '| --- | ---: | ---: | ---: | ---: | ---: |',
+    ]
+    for pair in pairs:
+        scores_held_out = pair['speed_calibration']['holdout']
+        lines.append(f'| {pair["peak"].title()} | {pair["seed"]} | {pair["supply"]["carros"]} | '
+                     f'{scores_held_out["mae"]:.2f} | {scores_held_out["n"]} | '
+                     f'{scores_held_out["within_5_pct"]:.1f}% |')
+    if any('candidate' in data for data in calibration['peaks'].values()):
+        changes = []
+        for pair in pairs:
+            peak = pair['peak']
+            earlier = PROJECT/'results_municipal'/peak/str(pair['seed'])/'referencia'/'speeds.json'
+            present = output/peak/str(pair['seed'])/'referencia'/'speeds.json'
+            if earlier.is_file() and present.is_file():
+                old, new = read_json(earlier), read_json(present)
+                common = sorted(edge for edge in eligible(old) & eligible(new) if reserved(edge))
+                if common:
+                    changes.append(f'| {peak} | {len(common)} | {scores(old, common)["mae"]:.2f} | '
+                                   f'{scores(new, common)["mae"]:.2f} |')
+        if changes:
+            lines += ['', 'Comparação do erro da referência na semente 101 nas mesmas vias reservadas.', '',
+                      '| Pico | Trechos em comum | MAE municipal (km/h) | MAE refinado (km/h) |',
+                      '| --- | ---: | ---: | ---: |', *changes]
+    lines += [
+        '',
+        'A fonte atual contém medianas por pico, sem contagens totais de campo para identificar a demanda. '
+        'Trechos curtos, marginais ou sem passagens suficientes ficam fora da avaliação. '
+        'A reserva avalia generalização espacial e para outra semente, com as mesmas medições históricas.',
+        '',
+    ]
+    (output/'CALIBRACAO.md').write_text('\n'.join(lines), encoding='utf-8')
 
 
 def write_markdown(report, output):
@@ -385,7 +504,10 @@ def write_policy(report, filename, policy):
             a = pair['audit']
             lines.append(f'| {pair["peak"]} | {pair["seed"]} | {a["n"]}/{a["episodes"]} | {a["gps_median"]} | {a["sumo_median"]} | {a["bias_median"]} | {a["absolute_median"]} |')
     lines.extend(['', 'O pareamento usa a duração do episódio de GPS usado na reconstrução da rota e a duração simulada do mesmo ônibus na referência.',
-                  'Os volumes absolutos de carros foram assumidos. As medianas TomTom dos picos limitam a velocidade desejada e já incorporam efeitos do congestionamento observado. Filas e sinais do SUMO podem acrescentar atraso sobre esse efeito.',
+                  ('O volume de carros é estimado. As medianas TomTom orientam a calibração da referência. '
+                   'Os limites da malha e a dinâmica do SUMO determinam a circulação.'
+                   if report.get('profile') == 'calibrado' else
+                   'Os volumes absolutos de carros foram assumidos. As medianas TomTom dos picos limitam a velocidade desejada.'),
                   '', '| Pico | Episódios de GPS na demanda | Paradas de ônibus codificadas | Intervalos com contagem de campo |',
                   '| --- | ---: | ---: | ---: |'])
     audited = {}

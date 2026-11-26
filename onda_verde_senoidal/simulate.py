@@ -19,7 +19,11 @@ from .network import Network
 
 PROJECT = Path(__file__).resolve().parent
 OUTPUT = PROJECT / 'results_mpc'
-PROFILES = {'original': OUTPUT, 'escalonado': PROJECT/'results_fluxo'}
+PROFILES = {'original': OUTPUT, 'escalonado': PROJECT/'results_fluxo',
+            'calibrado': PROJECT/'results_calibrado', 'municipal': PROJECT/'results_municipal',
+            'refinado': PROJECT/'results_refinado'}
+CALIBRATED = ('calibrado', 'municipal', 'refinado')
+STAGGERED = ('escalonado', *CALIBRATED)
 CHUNK = 60
 FRAME = 2
 BIN = 900
@@ -66,12 +70,15 @@ def write_chunk(folder, index, frames):
         json.dump(frames, stream, separators=(',', ':'))
 
 
-def demand(source, destination, duration, training, seed, profile='original'):
+def demand(source, destination, duration, training, seed, profile='original', scale=1., behavior=None):
     if not training and profile == 'original':
         copyfile(source, destination)
         return
     root = ET.parse(source).getroot()
-    if profile == 'escalonado':
+    if profile in STAGGERED:
+        if profile in CALIBRATED:
+            from .calibration import prepare_cars
+            prepare_cars(root, duration, seed, BIN, scale, behavior)
         stagger_cars(root, duration, seed, BIN)
     else:
         rng = Random(seed)
@@ -102,13 +109,21 @@ def check_trips(path, scheduled):
     return result, completed
 
 
+def network_for(profile):
+    if profile in ('municipal', 'refinado'):
+        from .road_limits import REGISTERED_NETWORK
+        return REGISTERED_NETWORK
+    return CACHE/'network/curitiba.net.xml'
+
+
 def simulate(peak, scenario, seed, *, source=None, net_path=None, extra_plan=None, broker=None, duration=None,
-             monitor=None, profile='original'):
+             monitor=None, profile='original', trial=None, behavior=None, controller_variant=None,
+             output_folder=None):
     started = perf_counter()
     training = scenario in ('treino', 'validacao')
     optimized = scenario in ('otimizado', 'coordenado', 'revisado')
     source = source or source_for(peak)
-    net_path = net_path or CACHE/'network/curitiba.net.xml'
+    net_path = net_path or network_for(profile)
     config = read_json(ROOT/'config/curitiba.json')
     meta = read_json(source/'metadata.json')
     begin = datetime.fromisoformat(meta['start']).astimezone(LOCAL)
@@ -116,18 +131,34 @@ def simulate(peak, scenario, seed, *, source=None, net_path=None, extra_plan=Non
     if duration is None:
         duration = int(meta['duration_s'])
     output = PROFILES[profile]
-    folder = monitor.folder if monitor else output / peak / str(seed) / scenario
+    scale = 1.
+    calibration = None
+    if trial:
+        folder, scale = trial
+    else:
+        folder = output_folder or (monitor.folder if monitor else output / peak / str(seed) / scenario)
+        if profile in CALIBRATED:
+            calibration = read_json(output/'calibration.json')['peaks'][peak]
+            scale = calibration['scale']
+            behavior = calibration.get('behavior')
+            if calibration['source_hashes'] != calibration_inputs(net_path, source):
+                raise ValueError('Os insumos mudaram. Execute calibrate novamente.')
     folder.mkdir(parents=True, exist_ok=True)
     (folder/'summary.json').unlink(missing_ok=True)
     road = Network(net_path, config['bbox'])
     plan = folder/'reference.add.xml'
     phases, origins = road.reference_plan(net_path, peak, plan, extra_plan)
     route_path = folder/'demand.rou.xml'
-    demand(source/'demand.rou.xml', route_path, duration, training, seed, profile)
+    demand(source/'demand.rou.xml', route_path, duration, training, seed, profile, scale, behavior)
     cfg = setup_sumo(folder, net_path.resolve(), duration, seed, plan)
+    targets_path = source/'traffic-targets.json'
+    targets = read_json(targets_path)['edges']
     caps = {edge: max(1., row['target_speed_kmh'])/3.6
-            for edge, row in read_json(source/'traffic-targets.json')['edges'].items()
-            if row['source'] == 'stats_monthly_median'}
+            for edge, row in targets.items() if row['source'] == 'stats_monthly_median'} if profile not in CALIBRATED else {}
+    speed_monitor = None
+    if profile in CALIBRATED and (trial or not training):
+        from .calibration import PassageSpeeds
+        speed_monitor = PassageSpeeds(road, targets, WARMUP)
     vehicles = {item.get('id'): (0 if item.get('id').startswith('car-') else 1)
                 for item in ET.parse(route_path).getroot().findall('vehicle')
                 if item.get('id').startswith(('car-', 'bus-')) and float(item.get('depart')) < duration}
@@ -162,23 +193,30 @@ def simulate(peak, scenario, seed, *, source=None, net_path=None, extra_plan=Non
     recorder = monitor if optimized else None
     try:
         if optimized:
-            from .control import Controller
+            from .control import VARIANTS, Controller
             from .live import ForecastRecorder
 
             if recorder is None:
                 recorder = ForecastRecorder(peak, seed, folder)
+            variant_settings = VARIANTS.get(controller_variant)
+            queue_targets = None
+            if variant_settings and variant_settings.reserve_queues:
+                queue_targets = read_json(output/peak/str(seed)/'referencia'/'queues.json')
             controller = Controller(conn, road, phases, watched, start_of_day, output/'fourier.json', broker,
                                     coordinated=scenario != 'otimizado', monitor=True,
-                                    review=scenario == 'revisado')
+                                    review=scenario == 'revisado', variant=controller_variant,
+                                    queue_targets=queue_targets)
         summary = collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps, counts, folder,
                           training, controller, duration, start_of_day, corridor_mask, recorder,
-                          record_replay=not training and monitor is None)
+                          record_replay=not training and monitor is None, speed_monitor=speed_monitor)
         if controller:
             summary['control'] = controller.summary()
     finally:
         if controller:
             controller.close()
         conn.close()
+    if speed_monitor:
+        write_json(folder/'speeds.json', speed_monitor.results(set(summary['teleport_ids'])))
     if training:
         summary = {'bins': {str(key): dict(value) for key, value in sorted(counts.items())}}
     else:
@@ -192,22 +230,33 @@ def simulate(peak, scenario, seed, *, source=None, net_path=None, extra_plan=Non
         map_file = output/'map.json'
         if monitor is None and not map_file.exists():
             write_json(map_file, road.map_data())
-    if profile == 'escalonado' and not training and not optimized:
+    if profile in STAGGERED and not training and not optimized:
         summary['bins'] = {str(key): dict(value) for key, value in sorted(counts.items())}
     summary.update(peak=peak, scenario=scenario, seed=seed, source=source.name, start=begin.isoformat(), profile=profile,
                    duration=duration, programs=origins, backend=backend, run_time_s=round(perf_counter()-started, 1),
                    inputs=dict(net=digest(net_path), routes=digest(route_path), reference=digest(plan),
-                               targets=digest(source/'traffic-targets.json')),
+                               targets=digest(targets_path)),
                    supply=dict(carros=sum(value == 0 for value in vehicles.values()),
                                onibus=sum(value == 1 for value in vehicles.values())))
     if recorder:
         recorder.write(folder)
+    if profile in CALIBRATED:
+        summary.update(car_scale=scale, speed_policy='limite_da_via', behavior=behavior)
+        if calibration:
+            summary['calibration_sources'] = calibration['source_hashes']
     write_json(folder/'summary.json', summary)
     print(f'{peak}/{seed}/{scenario}: {summary["run_time_s"]} s de processamento', flush=True)
 
 
+def calibration_inputs(net, source):
+    return {'net': digest(net), **{name: digest(source/name) for name in
+                                   ('demand.rou.xml', 'traffic-targets.json', 'metadata.json')},
+            **{path.name: digest(path) for path in sorted((ROOT/'config/signals').glob('*.xml'))}}
+
+
 def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps, counts, folder,
-            training, controller, duration, start_of_day, corridor_mask, recorder, *, record_replay):
+            training, controller, duration, start_of_day, corridor_mask, recorder, *,
+            record_replay, speed_monitor=None):
     tls = conn.trafficlight
     vehicle = conn.vehicle
     simulation = conn.simulation
@@ -242,15 +291,21 @@ def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps,
         for actor in simulation.getDepartedIDList():
             if actor in vehicles:
                 vehicle.subscribe(actor, variables)
-                if vehicles[actor] == 0:
+                if caps and vehicles[actor] == 0:
                     stock_speed[actor] = vehicle.getMaxSpeed(actor)
-        teleports.update(actor for actor in simulation.getStartingTeleportIDList() if actor in vehicles)
+        new_teleports = [actor for actor in simulation.getStartingTeleportIDList() if actor in vehicles]
+        teleports.update(new_teleports)
+        if speed_monitor:
+            speed_monitor.discard(new_teleports)
         for actor in simulation.getArrivedIDList():
             stock_speed.pop(actor, None)
             speed_command.pop(actor, None)
             prior_road.pop(actor, None)
             speed_before.pop(actor, None)
+            if speed_monitor:
+                speed_monitor.finish(actor)
         approaches = defaultdict(list)
+        approaching_buses = Counter()
         stopped_stock = Counter()
         playback = record_replay and now % FRAME == 0
         positions = []
@@ -263,6 +318,8 @@ def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps,
             if not eid:
                 continue
             kind = vehicles[actor]
+            if speed_monitor and kind == 0 and actor not in teleports:
+                speed_monitor.sample(actor, eid, now)
             if not training and speed < QUEUE_STOP_SPEED_MPS and not values[tc.VAR_STOPSTATE] & 1:
                 lane = values[tc.VAR_LANE_ID]
                 if lane in queue_monitor.lengths:
@@ -280,7 +337,7 @@ def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps,
                     if controller and eid in controller.routes and old is not None and actor not in teleports:
                         departures[old, eid] += 1
                     prior_road[actor] = eid
-                if kind == 0 and eid in road.edges:
+                if caps and kind == 0 and eid in road.edges:
                     cap = caps.get(eid)
                     original = stock_speed[actor]
                     command = min(original, max(cap, speed-2.5)) if cap is not None else original
@@ -293,8 +350,12 @@ def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps,
                 if controller and eid in watch_edges and not scheduled_stop:
                     distance = road.edges[eid].getLength() - values[tc.VAR_LANEPOSITION]
                     if distance <= 160:
-                        eta = 0 if speed < 1. else min(45, round(max(0., distance)/max(speed, 2.)))
+                        eta = 0 if speed < 1. else round(max(0., distance)/max(speed, 2.))
+                        if not controller.settings:
+                            eta = min(45, eta)
                         approaches[eid].append(eta)
+                        if kind == 1 and eta <= 45 and controller.settings and controller.settings.bus_weight:
+                            approaching_buses[eid] += 1
                 if gauged and eid in tracked_edges:
                     for corridor in tracked_edges[eid]:
                         row = metrics[corridor][kind]
@@ -313,14 +374,18 @@ def collect(conn, tc, road, watched, watch_edges, tracked_edges, vehicles, caps,
                                   kind, int(speed < 1.), corridor_mask.get(prior_road.get(actor), 0)])
         if controller or playback:
             lights = tls.getAllSubscriptionResults() or {}
+        queue_lengths = {}
         if not training:
             for lane, length in queue_monitor.measure(stopped).items():
                 queue_peaks['rede'] = max(queue_peaks['rede'], length)
-                for corridor in tracked_edges[approach_edges[lane]]:
+                edge = approach_edges[lane]
+                if controller and controller.settings:
+                    queue_lengths[edge] = max(queue_lengths.get(edge, 0.), length)
+                for corridor in tracked_edges[edge]:
                     queue_peaks[corridor] = max(queue_peaks[corridor], length)
         if controller:
             events = controller.step(now, lights, phase_var, approaches, arrivals, departures, stopped_stock,
-                                     arrivals_by_mode)
+                                     arrivals_by_mode, queue_lengths, approaching_buses)
             if record_replay:
                 mqtt_events.extend(events)
             if recorder:

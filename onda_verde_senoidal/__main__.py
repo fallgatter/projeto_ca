@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from .simulate import PROFILES, simulate
+from .simulate import CALIBRATED, PROFILES, simulate
 
 
 def main():
@@ -17,14 +17,16 @@ def main():
     run.add_argument('--broker', default='127.0.0.1:1885')
     fit = commands.add_parser('fit', help='Ajustar Fourier usando os cenários de treinamento')
     report = commands.add_parser('report', help='Consolidar os pares executados')
+    calibration = commands.add_parser('calibrate', help='Calibrar a demanda de referência com as medianas da TomTom')
+    calibration.add_argument('--profile', choices=('calibrado', 'municipal'), default='municipal')
     batch = commands.add_parser('batch', help='Treinar e executar os dois picos com sementes pareadas')
     batch.add_argument('--seeds', type=int, nargs='+')
-    batch.add_argument('--policies', nargs='+', choices=('otimizado', 'coordenado', 'revisado'), default=['coordenado'])
+    batch.add_argument('--policies', nargs='+', choices=('otimizado', 'coordenado', 'revisado'))
     batch.add_argument('--port', type=int, default=1886)
     serve = commands.add_parser('serve', help='Servir o painel local')
     serve.add_argument('--port', type=int, default=8077)
     for command in (run, fit, report, batch):
-        command.add_argument('--profile', choices=tuple(PROFILES), default='original')
+        command.add_argument('--profile', choices=tuple(PROFILES), default='municipal')
     serve.add_argument('--profile', choices=tuple(PROFILES))
     monitor = commands.add_parser('monitor', help='Reproduzir um ensaio e registrar as previsões por semáforo')
     monitor.add_argument('peak', choices=('manha', 'tarde'), default='manha', nargs='?')
@@ -44,10 +46,14 @@ def main():
     elif args.command == 'report':
         from .report import build_report
         build_report(PROFILES[args.profile])
+    elif args.command == 'calibrate':
+        from .calibration import calibrate
+        calibrate(PROFILES[args.profile], args.profile)
     elif args.command == 'batch':
         from .batch import batch
-        seeds = args.seeds or ([101] if args.profile == 'escalonado' else [42, 73])
-        batch(tuple(dict.fromkeys(seeds)), args.port, tuple(dict.fromkeys(args.policies)), args.profile)
+        seeds = args.seeds or ([42, 73] if args.profile == 'original' else [101])
+        policies = args.policies or (['revisado'] if args.profile in CALIBRATED else ['coordenado'])
+        batch(tuple(dict.fromkeys(seeds)), args.port, tuple(dict.fromkeys(policies)), args.profile)
     elif args.command == 'monitor':
         from .live import run_monitor
         run_monitor(args.peak, args.seed, args.port, args.duration, args.policy)
@@ -58,7 +64,8 @@ def main():
         asyncio.run(Broker([('127.0.0.1', args.port)]).serve_forever())
     else:
         from .server import serve_dashboard
-        profile = args.profile or ('escalonado' if (PROFILES['escalonado']/'report.json').is_file() else 'original')
+        profile = args.profile or next((name for name in ('refinado', 'municipal', 'calibrado', 'escalonado')
+                                        if (PROFILES[name]/'report.json').is_file()), 'original')
         serve_dashboard(args.port, PROFILES[profile])
 
 

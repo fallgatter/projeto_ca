@@ -2,3 +2,11 @@ results/
 results_mpc/
 results_escalonado/
 results_fluxo/
+results_calibrado/
+results_municipal/
+results_refinado/
+/README.md
+/requirements.txt
+/*.py
+!/__init__.py
+!/server.py

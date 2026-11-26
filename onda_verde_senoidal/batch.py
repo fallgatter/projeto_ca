@@ -2,9 +2,9 @@ from concurrent.futures import ThreadPoolExecutor
 from subprocess import run
 from sys import executable
 
-from .io import ROOT
+from .io import ROOT, read_json
 
-from .simulate import PROFILES
+from .simulate import CALIBRATED, PROFILES, STAGGERED
 
 
 def batch(seeds, port, policies=('coordenado',), profile='original'):
@@ -12,15 +12,20 @@ def batch(seeds, port, policies=('coordenado',), profile='original'):
 
     output = PROFILES[profile]
     output.mkdir(parents=True, exist_ok=True)
+    calibration = read_json(output/'calibration.json')['peaks'] if profile in CALIBRATED else None
 
     def execute(peak, scenario, seed):
         name = f'{peak}-{scenario}-{seed}'
         log = output / f'{name}.log'
         args = [executable, '-m', 'onda_verde_senoidal', 'run', peak, scenario,
                 '--seed', str(seed), '--broker', f'127.0.0.1:{port}', '--profile', profile]
-        if (output/peak/str(seed)/scenario/'summary.json').is_file():
-            print(f'{name} já está concluído.', flush=True)
-            return
+        summary_file = output/peak/str(seed)/scenario/'summary.json'
+        if summary_file.is_file():
+            summary = read_json(summary_file) if calibration is not None else {}
+            if calibration is None or (summary.get('car_scale') == calibration[peak]['scale']
+                                       and summary.get('calibration_sources') == calibration[peak]['source_hashes']):
+                print(f'{name} já está concluído.', flush=True)
+                return
         with log.open('w', encoding='utf-8') as stream:
             result = run(args, cwd=ROOT, stdout=stream, stderr=stream, check=False)
         if result.returncode:
@@ -30,7 +35,7 @@ def batch(seeds, port, policies=('coordenado',), profile='original'):
     peaks = ('manha', 'tarde')
     with ThreadPoolExecutor(max_workers=6) as pool:
         training = [pool.submit(execute, peak, 'treino', 17) for peak in peaks]
-        if profile == 'escalonado':
+        if profile in STAGGERED:
             training.extend(pool.submit(execute, peak, 'validacao', 73) for peak in peaks)
         references = [pool.submit(execute, peak, 'referencia', seed) for seed in seeds for peak in peaks]
         for future in training:

@@ -1,124 +1,164 @@
-# Resultados do experimento
+# Revisão do fluxo e otimização semafórica
 
-Controle preditivo coordenado com revisão do fluxo de fundo em janelas de cinco minutos.
+O experimento compara uma onda verde fixa, reconstruída no SUMO para o Quadrilátero de Curitiba, com um controlador que ajusta o tempo de verde durante a simulação. A série de Fourier estima o fluxo de fundo por aproximação. O controlador usa essa previsão junto com as chegadas detectadas e anunciadas pelos cruzamentos vizinhos para escolher quando encerrar o verde atual.
 
-O mapa contém 7245 segmentos motorizados e 649 semáforos.
-Cada comparação usou a mesma malha, demanda, limites de velocidade, semente e plano inicial.
-O atraso da rede considera os mesmos veículos concluídos sem teletransporte nos dois cenários.
-A fração de tempo parado por via inclui carros e ônibus após 5 minutos de aquecimento.
-Paradas programadas de ônibus integram o tempo parado.
+Os resultados deste relatório vêm de `results_refinado/`, o lote que o painel abre por padrão quando disponível. A demanda é de julho de 2026. Os picos simulados são das **6h30 às 9h** e das **17h às 19h**. O [relatório do lote anterior](../onda_verde_senoidal/results_fluxo/REVISAO.md) preserva as comparações da primeira revisão da correção de fluxo.
 
-| Pico | Semente | Atraso de viagem (s) | Kennedy, parado (%) | Sete, parado (%) | Floriano, parado (%) |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Manhã | 101 | 264,54 → 231,52 | 10,26 → 6,64 | 80,45 → 84,83 | 28,64 → 14,51 |
-| Tarde | 101 | 286,16 → 231,36 | 12,60 → 7,96 | 72,00 → 75,05 | 27,84 → 16,54 |
+## 1. Calibração e execução do cenário base
 
-| Pico | Semente | Viagens concluídas | Teletransportes | CO₂ (kg) | MQTT entregues | Ajustes de verde |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Manhã | 101 | 6555 → 6593 | 57 → 68 | 17308,00 → 16748,42 | 1131/1131 | 50996 |
-| Tarde | 101 | 6073 → 6133 | 52 → 54 | 15232,98 → 14385,73 | 1223/1223 | 48535 |
+A referência parte de um plano de tempos fixos. Ela aplica o plano reconstruído da Avenida Presidente Kennedy e, na manhã, usa também programas históricos adaptados da Setran. Nos demais trechos arteriais elegíveis, a defasagem entre verdes é estimada pelo tempo de percurso entre semáforos com ciclos compatíveis. O plano resultante representa a onda verde de referência no SUMO. [Construção do plano fixo](../onda_verde_senoidal/network.py)
 
-## Distribuição das viagens pareadas
+Na calibração, quatro combinações de volume de carros e parâmetros de condução foram simuladas com a semente **17**. A escolha minimizou o erro absoluto médio entre as medianas de velocidade por trecho do SUMO e da TomTom nas vias de ajuste. Nos dois picos foi escolhido o mesmo conjunto.
 
-| Pico | Semente | Viagens comuns | Medida (s) | Média | Mínimo | Mediana | P90 | P95 | Máximo |
-| --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| manha | 101 | 6486 | Atraso | 264,54 → 231,52 | 2,25 → 2,60 | 205,05 → 181,40 | 485,15 → 431,24 | 646,99 → 543,23 | 3275,32 → 4138,64 |
-| manha | 101 | 6486 | Duração | 647,72 → 614,81 | 8,00 → 9,00 | 579,00 → 552,00 | 1176,00 → 1104,00 | 1365,00 → 1262,75 | 4450,00 → 5070,00 |
-| tarde | 101 | 6003 | Atraso | 286,16 → 231,36 | 1,86 → 2,49 | 217,59 → 179,54 | 545,47 → 441,67 | 711,84 → 558,20 | 3795,44 → 3210,00 |
-| tarde | 101 | 6003 | Duração | 686,07 → 630,88 | 8,00 → 8,00 | 609,00 → 568,00 | 1285,00 → 1183,00 | 1496,00 → 1374,00 | 4772,00 → 4019,00 |
+| Parâmetro da simulação | Valor escolhido |
+| --- | ---: |
+| Multiplicador da demanda inicial de carros | 1,65 |
+| Aceleração (`accel`) | 1,1 m/s² |
+| Tempo de seguimento desejado (`tau`) | 1,4 s |
+| Imperfeição de condução no modelo Krauß (`sigma`) | 0,65 |
 
-## Meta de 10% de redução do atraso médio
+As medianas TomTom servem de alvo na calibração. A circulação usa os limites de velocidade da malha e o comportamento simulado. O volume absoluto de carros é estimado. Depois de ajustar o volume, as partidas de carro são espaçadas por origem dentro de blocos de 15 minutos, com deslocamentos de até 8 s para equilibrar as entradas em janelas de 5 s. O escalonamento preserva o volume ajustado por bloco, as rotas e os horários dos demais modos. [Calibração de tráfego](../onda_verde_senoidal/results_refinado/CALIBRACAO.md) · [Escalonamento das partidas](../onda_verde_senoidal/demand.py)
 
-| Pico | Semente | Ganho sobre onda verde | Meta atingida |
-| --- | ---: | ---: | --- |
-| manha | 101 | 12.48% | Sim |
-| tarde | 101 | 19.15% | Sim |
+## 2. Treinamento do modelo senoidal
 
-As sementes 42 e 73 orientaram o ajuste. A semente 101, quando presente, avalia a política já definida sobre a mesma demanda com outra realização do SUMO.
+### O que entra no treino
 
-| Grupo | Ocorrências de viagens pareadas | Atraso médio ponderado (s) | Redução |
-| --- | ---: | ---: | ---: |
-| Avaliação reservada | 12489 | 274,93 → 231,45 | 15.82% |
-| Todos os ensaios | 12489 | 274,93 → 231,45 | 15.82% |
+Uma **aproximação** é um trecho dirigido pelo qual os veículos chegam ao semáforo. Para cada aproximação, o modelo aprende a relação entre **hora do dia** e **taxa de chegada de carros e ônibus**. Essa relação descreve o fluxo de fundo observado na simulação com a onda verde fixa. O SUMO conta um veículo quando ele entra no trecho.
 
-## Permanência nas três vias
+Os dois picos fornecem 18 blocos de treino por aproximação, dez de manhã e oito à tarde. O horário usado no ajuste é o ponto médio do bloco. As fórmulas abaixo convertem a contagem em veículos por hora e dão mais peso aos blocos com maior tempo de observação.
 
-Cada passagem requer entrada e saída observadas após cinco minutos de aquecimento. Os grupos de passagens podem ter tamanhos diferentes. A resolução do replay é de 2 s.
+$$
+y_i=\frac{3600\,N_i}{\Delta t_i},
+\qquad w_i=\frac{\Delta t_i}{900}.
+$$
 
-| Pico | Semente | Via | Passagens | Média (s) | Mínimo (s) | Mediana (s) | P95 (s) | Máximo (s) |
-| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| manha | 101 | Avenida Presidente Kennedy | 368 → 373 | 121,46 → 122,61 | 2,00 → 2,00 | 96,00 → 114,00 | 266,00 → 252,80 | 544,00 → 346,00 |
-| manha | 101 | Avenida Sete de Setembro | 566 → 535 | 339,41 → 347,57 | 4,00 → 4,00 | 93,00 → 90,00 | 1414,50 → 1573,00 | 3258,00 → 3914,00 |
-| manha | 101 | Avenida Marechal Floriano Peixoto | 489 → 473 | 128,16 → 108,06 | 14,00 → 12,00 | 76,00 → 64,00 | 407,20 → 370,80 | 658,00 → 760,00 |
-| tarde | 101 | Avenida Presidente Kennedy | 347 → 355 | 116,56 → 116,12 | 2,00 → 2,00 | 104,00 → 98,00 | 276,00 → 306,60 | 312,00 → 364,00 |
-| tarde | 101 | Avenida Sete de Setembro | 517 → 503 | 289,36 → 303,28 | 2,00 → 2,00 | 94,00 → 86,00 | 1126,40 → 1337,80 | 2570,00 → 2986,00 |
-| tarde | 101 | Avenida Marechal Floriano Peixoto | 456 → 462 | 140,21 → 123,33 | 10,00 → 6,00 | 78,00 → 76,00 | 502,50 → 429,90 | 670,00 → 694,00 |
+$N_i$ é a contagem, $\Delta t_i$ é o tempo observado em segundos e 900 s correspondem a 15 min. Um bloco completo tem peso 1. Como os cinco primeiros minutos de cada pico são de aquecimento, o primeiro bloco tem 600 s de observação e peso 2/3. A tabela mostra duas observações reais da aproximação da Sete de Setembro com a Rua Doutor Faivre, identificada por `289957316`.
 
-## Todas as partidas programadas
+| Bloco | Horário usado no ajuste | Tempo observado | Contagem | Taxa observada | Peso |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 6h30–6h45 | 6h37min30s | 10 min | 18 | 108 veículos/h | 2/3 |
+| 7h–7h15 | 7h07min30s | 15 min | 37 | 148 veículos/h | 1 |
 
-Tempo médio desde a partida programada até uma chegada válida, em segundos. Para quem ficou pendente ou sofreu teletransporte, a contagem vai até o fim do pico.
+[Coleta de chegadas](../onda_verde_senoidal/simulate.py) · [Contagens do treino da manhã](../onda_verde_senoidal/results_refinado/manha/17/treino/summary.json)
 
-| Pico | Semente | Referência → preditivo (s) |
+### O que os senos e cossenos representam
+
+A previsão de fluxo é uma soma de ondas com períodos fixos. O tempo $t$ é medido em horas desde a meia-noite.
+
+$$
+g(t)=a_0+\sum_{k=1}^{H}
+\left[a_k\cos\!\left(\frac{2\pi kt}{24}\right)
++b_k\sin\!\left(\frac{2\pi kt}{24}\right)\right],
+\qquad F(t)=\max\left(0,g(t)\right).
+$$
+
+O termo $a_0$ desloca a curva inteira para cima ou para baixo. Cada par $a_k,b_k$ combina seno e cosseno de mesmo período para ajustar a intensidade da oscilação e a posição dos seus picos no relógio. O primeiro harmônico oscila uma vez por dia. O segundo oscila duas vezes e ajuda a formar os picos da manhã e da tarde. A soma permite que esses picos tenham alturas e formatos diferentes. As contribuições de cada harmônico podem ser positivas ou negativas. O limite de zero vale para a previsão final $F(t)$.
+
+Com $H=6$, os períodos são **24, 12, 8, 6, 4,8 e 4 horas**. A ordem é comum às **1.228 aproximações** do lote. Cada uma tem seus próprios **13 coeficientes**, um termo constante e seis pares de seno e cosseno. Como os períodos são divisões de 24 h, a curva nominal se repete a cada dia.
+
+### Como o treino encontra os coeficientes
+
+Para cada observação, o código calcula os valores dos senos e cossenos no horário central do bloco. Esses valores ficam fixos. A regressão ajusta os coeficientes que multiplicam cada termo. Por exemplo, o ponto de 7h07min30s pede que a soma das ondas se aproxime de 148 veículos/h. Os outros horários fazem o mesmo com suas próprias taxas. O ajuste encontra um único conjunto de coeficientes que melhor atende ao conjunto de pontos.
+
+O método é **mínimos quadrados ponderados com regularização ridge**. A expressão minimizada soma o erro quadrático ponderado entre as taxas $y_i$ e a curva $g(t_i)$ com uma penalidade sobre os coeficientes dos harmônicos.
+
+$$
+\sum_i w_i\,[y_i-g(t_i)]^2
++\sum_{k=1}^{H}0{,}08\max\left(1,\left(\frac{k}{2}\right)^2\right)
+\left(a_k^2+b_k^2\right).
+$$
+
+O primeiro termo aproxima a curva das observações. O segundo reduz oscilações excessivas ao penalizar coeficientes grandes, com penalidade maior nos harmônicos mais rápidos. O termo constante $a_0$ fica livre dessa penalidade. O código resolve o sistema linear resultante para cada aproximação e grava os coeficientes em `fourier.json`.
+
+Como as observações se concentram nos dois picos, o ajuste inclui nove pontos auxiliares de peso **0,18** cada. Seus valores são frações da média das taxas de treino daquela aproximação. Por exemplo, o perfil auxiliar atribui às 3h uma taxa de 10% dessa média. Assim, a curva de 24 h tem apoio fora das janelas simuladas, onde seus valores são estimativas. [Implementação da base, regressão e perfil auxiliar](../onda_verde_senoidal/fourier.py)
+
+### Como a ordem foi escolhida
+
+O ajuste foi repetido para as ordens 2, 3, 4 e 6 usando a **semente 17**. Na **semente 73**, cada taxa prevista foi reconvertida em contagem para o tempo observado e comparada com a contagem do SUMO. O erro absoluto total foi dividido pela exposição em horas somada sobre todas as aproximações, produzindo o MAE em veículos/h. A ordem **6** obteve o menor MAE de validação. As contagens da referência na **semente 101** serviram como teste da previsão depois dessa escolha.
+
+| Ordem $H$ | MAE de validação, semente 73 (veículos/h) | MAE de teste, semente 101 (veículos/h) |
+| ---: | ---: | ---: |
+| 2 | 9,066 | 9,059 |
+| 3 | 9,115 | 8,967 |
+| 4 | 9,070 | 8,906 |
+| **6** | **8,823** | **8,643** |
+
+[Coeficientes e validação](../onda_verde_senoidal/results_refinado/fourier.json) · [Resultados do teste da previsão](../onda_verde_senoidal/results_refinado/report.json)
+
+### Como os harmônicos formam uma previsão
+
+Na aproximação da Sete de Setembro com a Doutor Faivre, o treino encontrou $a_0=82{,}1794$. Para o harmônico de 12 h, os coeficientes são $a_2=-28{,}1197$ e $b_2=-30{,}8905$. Às 7h07min30s, os valores do cosseno e do seno desse harmônico são aproximadamente −0,8315 e −0,5556. Multiplicando pelos coeficientes e somando, a contribuição desse harmônico fica em **+40,54 veículos/h**. A mesma conta é feita para os demais harmônicos.
+
+| Componente (veículos/h) | Às 7h07min30s | Às 7h35min22,5s |
 | --- | ---: | ---: |
-| manha | 101 | 696,26 → 667,50 |
-| tarde | 101 | 718,88 → 661,35 |
+| Termo constante $a_0$ | 82,18 | 82,18 |
+| Harmônico de 24 h | +2,85 | +7,05 |
+| Harmônico de 12 h | +40,54 | +41,77 |
+| Harmônico de 8 h | −0,09 | +4,07 |
+| Harmônico de 6 h | +16,97 | +15,67 |
+| Harmônico de 4,8 h | −8,58 | −6,60 |
+| Harmônico de 4 h | +3,79 | −2,83 |
+| **Previsão nominal** | **137,66** | **141,31** |
 
-## Pedestres simulados na XV de Novembro
+No primeiro horário, a curva ajustada estima **137,66 veículos/h** para o bloco cuja taxa observada foi **148 veículos/h**. O segundo horário é o ponto médio dos 45 segundos seguintes às 7h35. O controlador parte dessa previsão nominal e aplica a correção de fluxo descrita na seção seguinte. [Coeficientes da aproximação](../onda_verde_senoidal/results_refinado/fourier.json) · [Registro do replay](../onda_verde_senoidal/results_refinado/manha/101/revisado/forecast.json)
 
-| Pico | Semente | Percursos comuns | Duração média (s) | P95 (s) |
-| --- | ---: | ---: | ---: | ---: |
-| manha | 101 | 658 | 77,01 → 77,01 | 118,00 → 118,00 |
-| tarde | 101 | 2566 | 81,14 → 81,14 | 122,00 → 122,00 |
+## 3. Correção da previsão durante a simulação
 
-## Aderência da referência aos dados locais
+Os coeficientes permanecem fixos durante a execução. A cada minuto, o controlador atualiza um ajuste por aproximação. Para os $n$ minutos mais recentes, até cinco, ele soma as chegadas observadas ($O$) e as esperadas pela curva ($E$). A tolerância $T=2\sqrt{\max(1,E)}$ reduz a influência de variações pequenas em contagens baixas. O cálculo do erro usa apenas o excesso além dessa tolerância.
 
-| Pico | Semente | Ônibus pareados | Mediana GPS (s) | Mediana SUMO (s) | Erro pareado mediano (s) | Erro absoluto mediano (s) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| manha | 101 | 1284/1448 | 565.0 | 492.0 | -31.5 | 165.0 |
-| tarde | 101 | 1299/1465 | 490 | 372.0 | -69.0 | 172.0 |
+$$
+e_m = \frac{60}{n}\operatorname{sgn}(O-E)\max(0,|O-E|-T),
+\qquad r_m=0{,}80\,r_{m-1}+0{,}20\,e_m.
+$$
 
-O pareamento usa a duração do episódio de GPS usado na reconstrução da rota e a duração simulada do mesmo ônibus na referência.
-Os volumes absolutos de carros foram assumidos. As medianas TomTom dos picos limitam a velocidade desejada e já incorporam efeitos do congestionamento observado. Filas e sinais do SUMO podem acrescentar atraso sobre esse efeito.
+O fator $60/n$ converte o desvio da janela para veículos por hora. A previsão corrigida para o horizonte de 45 s é a curva avaliada no ponto médio desse horizonte, mais $r_m$, com limite inferior de zero. [Regra de correção](../onda_verde_senoidal/flow.py) · [Atualização no controlador](../onda_verde_senoidal/control.py)
 
-| Pico | Episódios de GPS na demanda | Paradas de ônibus codificadas | Intervalos com contagem de campo |
-| --- | ---: | ---: | ---: |
-| manha | 1448 | 149 | 0 |
-| tarde | 1465 | 113 | 0 |
+No replay da manhã, às **7h35**, a aproximação da Sete de Setembro com a Doutor Faivre registrou **4 veículos em cinco minutos**, ante **11,76 esperados**. A tolerância foi de **6,86 veículos**. O excesso gerou um erro de **−10,81 veículos/h** e a atualização suavizada resultou em **−10,35 veículos/h**. A previsão nominal de **141,31 veículos/h** passou para **130,96 veículos/h**. [Histórico da previsão e das decisões](../onda_verde_senoidal/results_refinado/manha/101/revisado/forecast.json)
 
-O tempo de embarque depende das paradas detectáveis no GPS. Os planos semafóricos mesclam registros históricos e defasagens inferidas dos tempos de percurso.
+## 4. Otimização do verde em horizonte móvel
 
-P90 e P95 usam interpolação linear. Cada extremo identifica o menor ou maior valor do grupo em cada cenário.
-Os valores reportados são resultados do SUMO para a demanda de julho de 2026.
+Para cada cruzamento elegível, a estimativa de chegadas nos próximos **45 s** combina três fontes.
 
-## Demanda escalonada e ordem de Fourier
+- **Detecção local.** A distância até o sinal e a velocidade dos veículos detectados nos últimos 160 m do trecho dão uma estimativa do instante de chegada. Veículos parados entram como fila imediata.
+- **Comunicação entre cruzamentos.** Nos corredores, mensagens MQTT anunciam o tamanho estimado do grupo que saiu de um cruzamento vizinho e seu horário previsto de chegada.
+- **Fluxo de fundo.** A previsão corrigida de Fourier acrescenta chegadas esperadas nos instantes mais distantes do horizonte. As variantes escolhidas reconciliam as fontes para reduzir a dupla contagem de veículos.
 
-As partidas de carro foram espaçadas por origem em blocos de 15 minutos, com uma fase sorteada por origem e bloco. Pequenos deslocamentos de até 8 s reduzem extremos em janelas de 5 s. A malha, o volume por bloco, as rotas e os horários dos demais modos foram preservados. Carros que entram pelo perímetro passam a usar a velocidade de inserção segura do SUMO.
+A variável de decisão é o **tempo restante do verde atual**. Para cada duração candidata, o código projeta as janelas de verde que atendem cada aproximação e estima quando a fila poderá escoar, considerando a capacidade por faixa. O custo combina a **espera prevista em veículos-segundo** com uma penalidade pela alteração em relação ao plano. As variantes também podem dar mais peso a ônibus e filas ou penalizar a liberação em direção a uma saída congestionada. O controlador aplica a opção de menor custo local e volta a avaliar com as observações seguintes. Nos cruzamentos protegidos, ele transfere tempo entre dois verdes, preservando a duração do ciclo. A ordem das fases, o amarelo e as fases exclusivas de travessia são preservados. [Modelo de atendimento e busca das durações candidatas](../onda_verde_senoidal/control.py)
 
-Ordem adotada pelo erro absoluto médio de validação: **6**.
+Às **7h35min57s**, no mesmo cruzamento do exemplo, restavam **34 s** de verde. O controlador avaliou as seguintes durações. Escolheu **44 s** pelo menor custo previsto e descontou os 10 s adicionais de outro verde do ciclo. [Decisão registrada no replay da manhã](../onda_verde_senoidal/results_refinado/manha/101/revisado/forecast.json)
 
-Validação, semente [73]: ordem 2: 6.401, ordem 3: 6.370, ordem 4: 6.326, ordem 6: 6.197 veíc./h.
+| Verde restante candidato (s) | Custo previsto |
+| ---: | ---: |
+| 24 | 73,46 |
+| 29 | 71,50 |
+| 34 | 31,52 |
+| 39 | 33,06 |
+| **44** | **3,71** |
 
-Teste reservado, semente [101]: ordem 2: 6.432, ordem 3: 6.396, ordem 4: 6.353, ordem 6: 6.198 veíc./h.
+## 5. Seleção das variantes e resultado otimizado
 
-| Pico | Intervalos avaliados | Intervalos menores que 5 s | Intervalos maiores que 120 s | P90 do intervalo (s) | Janelas de 5 s sem entrada na malha | Pico de entradas em 5 s |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| manha | 1402 → 1402 | 97 → 1 | 194 → 90 | 142,0 → 107,9 | 77 → 2 | 10 → 9 |
-| tarde | 1093 → 1093 | 86 → 0 | 185 → 57 | 157,0 → 106,8 | 29 → 0 | 11 → 10 |
+Os pesos, tempos e regras do controlador foram definidos em **12 variantes** e comparados na semente **101**. Cada par manteve a mesma malha, demanda, semente, limites de velocidade e plano inicial. O primeiro critério foi atingir **10% de redução no atraso médio da malha**. Em seguida, a seleção considerou quantos dos nove indicadores foram atingidos, incluindo tempo de viagem, tempo de permanência por via e maiores filas. Em caso de empate, considerou primeiro o pior resultado entre os indicadores e depois a soma dos ganhos. Pela manhã foi escolhido `atuado`, que leva em conta lacunas nas chegadas ao verde atual. À tarde foi escolhido `reservas_ciclo`, que usa as maiores filas medidas na referência para ponderar as filas observadas e protege o ciclo em cruzamentos selecionados. [Critério de seleção](../onda_verde_senoidal/improve.py) · [Comparação das 12 variantes](../onda_verde_senoidal/results_refinado/KPIS.md)
 
-Os intervalos são medidos nas dez origens de carro com maior demanda na referência original, com o mesmo plano fixo e a mesma semente. As janelas de 5 s abrangem todas as origens. O escalonamento controla a demanda gerada. A aderência dos intervalos à rua depende de medições de campo.
+O atraso e a duração são calculados sobre os mesmos carros e ônibus que concluíram suas viagens sem teletransporte em ambos os cenários. O atraso usa o indicador `timeLoss` do SUMO, que registra o tempo perdido ao circular abaixo da velocidade ideal. A maior fila contínua é medida a partir da linha de retenção, com veículos abaixo de 0,1 m/s, distância de até 10 m entre eles e exclusão das paradas programadas. [Definição de `timeLoss` no SUMO](https://eclipse.dev/sumo/docs/Simulation/Output/TripInfo.html) · [Medição de filas](../onda_verde_senoidal/queues.py)
 
-## Revisão da correção de fluxo
+| Pico | Variante | Viagens pareadas | Atraso médio (s) | Duração média (s) | Maior fila contínua (m) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Manhã | `atuado` | 9.973 | 248,99 → 223,31 (**−10,32%**) | 469,95 → 443,97 | 260,54 → 284,43 |
+| Tarde | `reservas_ciclo` | 9.092 | 237,77 → 198,92 (**−16,34%**) | 441,01 → 401,61 | 256,34 → 314,62 |
 
-A contagem observada continua registrada por minuto. A revisão corrige a demanda de fundo com até cinco minutos de contagens acumuladas. O erro só contribui acima da tolerância de duas vezes a raiz do maior valor entre um e a contagem prevista. A tolerância é uma heurística para evitar que eventos isolados dominem o ajuste.
+A meta de atraso foi atingida nos dois picos, com aumento da fila máxima da malha em ambos. A semente 101 foi reservada para testar a previsão de Fourier e foi usada para escolher as variantes do controlador. Os ganhos de atraso, portanto, descrevem o ensaio de seleção das variantes.
 
-| Pico | Observações com Fourier até 30 veíc./h | Sem veículo | Um veículo | MAE em 5 min, antes → revisão | Saltos de pelo menos 10 veíc./h, antes → revisão |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| manha | 115360 | 100274 | 13295 | 8,20 → 7,02 | 7984 → 9 |
-| tarde | 87492 | 75121 | 10633 | 8,90 → 7,48 | 6475 → 4 |
+### Resultados por corredor
 
-Esse diagnóstico reaplica as duas regras ao mesmo histórico, com alvo igual à média dos cinco minutos seguintes. As tabelas anteriores apresentam as novas execuções do simulador.
+A permanência média considera passagens com entrada e saída observadas após o aquecimento. A maior fila é medida nas aproximações do corredor. As setas indicam a passagem da referência para o cenário preditivo.
 
-| Pico | Viagens comuns aos três cenários | Atraso na referência | Atraso coordenado | Atraso revisado |
-| --- | ---: | ---: | ---: | ---: |
-| manha | 6425 | 258,77 | 236,39 | 223,94 |
-| tarde | 5960 | 283,27 | 230,59 | 228,37 |
+| Pico | Corredor | Permanência média (s) | Maior fila contínua (m) |
+| --- | --- | ---: | ---: |
+| Manhã | Presidente Kennedy | 108,40 → 107,36 | 48,11 → 50,81 |
+| Manhã | Sete de Setembro | 273,80 → 279,45 | 252,77 → 261,94 |
+| Manhã | Marechal Floriano Peixoto | 93,21 → 74,14 | 82,58 → 112,15 |
+| Tarde | Presidente Kennedy | 98,99 → 98,50 | 95,78 → 63,02 |
+| Tarde | Sete de Setembro | 225,84 → 187,77 | 248,49 → 314,62 |
+| Tarde | Marechal Floriano Peixoto | 90,85 → 83,88 | 106,31 → 102,80 |
+
+Os dados do lote refinado também registram a distribuição das viagens pareadas, o tempo desde a partida programada, os percursos de pedestres e a comparação com o GPS dos ônibus na referência. [Indicadores por via e variante](../onda_verde_senoidal/results_refinado/KPIS.md) · [Tabelas detalhadas do lote refinado](../onda_verde_senoidal/results_refinado/REVISAO.md#distribuição-das-viagens-pareadas)

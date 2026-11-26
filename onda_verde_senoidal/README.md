@@ -12,7 +12,7 @@ python -m venv .venv
 .venv/Scripts/python.exe -m onda_verde_senoidal serve
 ```
 
-Abra [o painel local](http://127.0.0.1:8077). O servidor usa os replays com demanda escalonada em `results_fluxo` assim que o lote estiver consolidado. Use `serve --profile original` para abrir os replays anteriores. A reprodução lê posições SUMO a cada 2 s e interpola as posições entre amostras. Os tópicos e horários MQTT vêm dos pacotes que chegaram ao cliente de destino durante a simulação.
+Abra [o painel local](http://127.0.0.1:8077). O servidor abre o lote com limites municipais quando o relatório estiver consolidado. Use `serve --profile escalonado` para voltar ao replay com o teto histórico. A reprodução lê posições SUMO a cada 2 s e interpola as posições entre amostras. Os tópicos e horários MQTT vêm dos pacotes que chegaram ao cliente de destino durante a simulação.
 
 Se a instalação no Windows com Python 3.15 falhar por falta de `windows-curses`, instale as dependências usadas pelo painel, pela simulação e pelo broker embutido diretamente:
 
@@ -85,6 +85,25 @@ A opção **Isolar somente esta via nos dois mapas** filtra a geometria, as apro
 O seletor **Permanência nesta via** mede a duração das passagens em que o replay observou a entrada e a saída depois do aquecimento. O painel informa o número de passagens de cada cenário. Para verificar a sensibilidade à seleção das viagens concluídas, **Toda a malha** também traz o tempo por partida programada até a chegada válida ou o fim da janela. O relatório inclui durações de pedestres e compara os tempos da referência com os episódios GPS da URBS. Os mesmos episódios orientam a construção das rotas e servem como diagnóstico de aderência.
 
 ## Reprodução e resultados
+
+Os ensaios refinados ajustam a aceleração, o intervalo de seguimento e a variação de condução do modelo Krauß. As variantes do preditivo usam a extensão das filas e a disponibilidade das saídas na avaliação das próximas fases. [Parâmetros do SUMO](https://sumo.dlr.de/docs/Car-Following-Models.html) · [Controle por pressão de filas](https://www.sciencedirect.com/science/article/pii/S0968090X13001782)
+
+```powershell
+.venv/Scripts/python.exe -m onda_verde_senoidal.improve calibrate
+.venv/Scripts/python.exe -m onda_verde_senoidal.improve benchmark --variants revisado pressao progressao filas descarga arteriais prioridade sincronia atuado atuado_prioritario reservas reservas_ciclo
+```
+
+Os resultados ficam em `results_refinado/`. O arquivo `KPIS.md` registra a meta de 10% no atraso médio, o tempo na malha e as filas e tempos por via. A seleção compara as variantes na semente 101. A generalização do controlador para outras sementes exige ensaios adicionais.
+
+O perfil `municipal` usa os limites cadastrados pelo GeoCuritiba quando o nome da via e três pontos ao longo do trecho permitem associá-lo a um mesmo limite. Os demais trechos conservam seus limites na malha. As medianas históricas da TomTom são usadas para escolher o multiplicador de demanda da referência por pico. A escolha é feita na semente 17. O relatório registra o erro em vias reservadas e na semente 101. [GeoCuritiba, camada Trecho de Arruamento](https://geocuritiba.ippuc.org.br/server/rest/services/GeoCuritiba/Publico_Interno_GeoCuritiba_BaseCartografica_para_BC/MapServer/76)
+
+```powershell
+.venv/Scripts/python.exe -m onda_verde_senoidal.road_limits onda_verde_senoidal/results_calibrado/limites-geocuritiba.geojson
+.venv/Scripts/python.exe -m onda_verde_senoidal calibrate
+.venv/Scripts/python.exe -m onda_verde_senoidal batch --profile municipal --seeds 101 --policies revisado
+```
+
+Os novos replays ficam em `results_municipal/`, junto com `CALIBRACAO.md` e `REVISAO.md`. Os dois braços usam o mesmo arquivo de rotas e a mesma velocidade limite. O perfil `calibrado` serve para comparar o ajuste com a malha anterior, sem a atualização de limites. Os replays com o teto histórico da TomTom continuam disponíveis em `results_fluxo/`.
 
 Para gerar os replays em um checkout novo, instale o SUMO e coloque-o no `PATH` ou configure `SUMO_HOME`. Copie os insumos das execuções de julho de 2026 para estes caminhos:
 

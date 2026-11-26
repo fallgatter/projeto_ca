@@ -1,10 +1,13 @@
+import argparse
 import re
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from urllib.parse import urlsplit
 
-from .simulate import OUTPUT, PROJECT
 
+PROJECT = Path(__file__).resolve().parent
+OUTPUT = PROJECT / 'results_fluxo'
 
 REPLAY = re.compile(r'/(manha|tarde)/\d+/(referencia|otimizado|coordenado|revisado)/\d+\.json')
 FORECAST = re.compile(r'/(manha|tarde)/\d+/(otimizado|coordenado|revisado)/forecast\.json')
@@ -66,3 +69,17 @@ def serve_dashboard(port, output=OUTPUT):
             server.serve_forever()
         except KeyboardInterrupt:
             pass
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Painel de trânsito do Quadrilátero de Curitiba')
+    parser.add_argument('--port', type=int, default=8077)
+    parser.add_argument('--data', type=Path, help='Pasta com os dados do replay')
+    args = parser.parse_args()
+    candidates = (PROJECT/'results_refinado', PROJECT/'results_municipal', PROJECT/'results_calibrado')
+    output = args.data or next((p for p in candidates if (p/'report.json').is_file()), OUTPUT)
+    serve_dashboard(args.port, output.resolve())
+
+
+if __name__ == '__main__':
+    main()
